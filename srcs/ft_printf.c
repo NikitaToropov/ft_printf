@@ -67,6 +67,7 @@ int			ft_printf(const char *format, ...)
 	a_list		*first_arg;
 	int			num_of_chars;
 
+	printf("yo\n");
 	num_of_chars = 0;
 	// ft_testing(format);
 	// return (num_of_symbls);

@@ -3,48 +3,79 @@ NAME = libftprintf.a
 # dirs
 DIR_S = srcs
 
-DIR_O = objs
+DIR_O = obj
 
 DIR_L = libft
 
-INCLUDES = ./
+INCLUDES = includes
 
 # files
-SOURCES = *.c
+C_FILES = 	ft_printf.c\
+			ft_errors.c
+			
+SRCS = $(addprefix $(DIR_S)/,$(C_FILES))
 
-SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
+OBJS = $(addprefix $(DIR_O)/,$(C_FILES:.c=.o)))
 
-OBJS = $(addprefix $(DIR_O)/, $(SOURCES:.c=.o))
-
-FLAG = -Wall -Werror -Wextra
+# flags
+FLAGS = -Wall -Werror -Wextra
+CC = gcc
 
 .PHONY: all clean fclean re
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@make -C $(DIR_L)
-	@cp libft/libft.a ./$(NAME)
-	@ar rc $(NAME) $(OBJS)
-	@ranlib $(NAME)
+$(DIR_O):
+	mkdir -p $(DIR_O)
+	make -C $(DIR_L)
 
-$(DIR_O)/%.o: $(DIR_S)/%.c $(INCLUDES)/ft_printf.h
-	@mkdir -p obj
-	@gcc $(FLAGS) -I $(INCLUDES) -o $@ -c $<
+$%(OBJS):$%(SRCS)
+	$(CC) $(FLAGS) -I ./$(INCLUDES) -c $< -o $@
 
-	# @gcc -I $(INCLUDES) -Wall -Wextra -Werror -c $(SRCS)
-	# @ar rc $(NAME) $(OBJECTS)
-	# @ranlib $(NAME)
-	# @gcc -c main.c
-	# @gcc -o letsDoIt main.o -L. -lftprintf
-	# @./letsDoIt
+$(NAME): $(DIR_O) $(OBJS)
+	ar rc $(NAME) $(OBJS)
+	ranlib $(NAME)
+
+
+
+# $(DIR_O):
+
+
+
+# $(NAME): $(DIR_O)
+
+# $(DIR_O): $(DIR_L)
+	
+# $(DIR_L):
+
+# $(OBJS)/%.c:$(SRCS)/.o
+# 	mkdir -p obj
+
+
+
+# $(NAME): $(OBJS) 
+# #	$(CC) $(FLAGS) $(OBJS) -I $(INCLUDES) -c $< -o $@
+# 	make -C $(DIR_L)
+
+# $%(OBJS):$%(SRCS)
+# 	$(CC) $(FLAGS) -I $(INCLUDES) -c $@ -o $<
+# 	# -L ./libft -lft 
+
+# #$(NAME):  $(DIR_O)/%.o
+# #	mkdir obj
+
+# #$(DIR_O)/%.o: $(DIR_S)/%.c $(INCLUDES)/ft_printf.h
+# #	gcc $(FLAGS) -I $(INCLUDES) -c $< -o $@
+
+# $(NAMELIBFT):
+# 	make -C $(DIR_L)
+	
 clean:
-	@rm -f $(OBJS)
-	@rm -rf obj
-	@make clean -C $(DIR_L)
+	rm -rf obj
+	make clean -C $(DIR_L)
 
 fclean: clean
-	@rm -f $(NAME)
-	@make fclean -C $(DIR_L)
-	# @rm letsDoIt
+	rm -f $(NAME)
+	make fclean -C $(DIR_L)
+
 re: fclean all

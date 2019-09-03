@@ -4,11 +4,15 @@
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdio.h>
-#include <stdlib.h>
+# include <stdlib.h>
+# include "../libft/libft.h"
 
-typedef struct		s_list
+
+
+
+typedef struct		m_list
 {
-	char			*flags; // или  enum
+	char			flags[6]; // или  enum
 	long int		width; // узнать
 	long int		precision; // тоже
 	char			*lenght;
@@ -18,8 +22,8 @@ typedef struct		s_list
 }					a_list;
 
 void		ft_error(int code);
-a_list		*ft_make_struct(const char *format, ...);
 int			ft_printf(const char *format, ...);
+// char	*ft_strchr(const char *s, int c);
 
 
 #endif

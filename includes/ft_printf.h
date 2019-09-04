@@ -6,9 +6,10 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-typedef struct		m_list
+typedef struct		s_list
 {
-	char			flags[6]; // или  enum
+	long int		parameter;
+	char			flags; // или  enum !!!!!!!!!!!!!!!!!!!!!!!!!!!!! исправ!
 	long int		width; // узнать
 	long int		precision; // тоже
 	char			*lenght;
@@ -17,6 +18,8 @@ typedef struct		m_list
 	struct s_list	*next;
 }					a_list;
 
+char		*ft_strchr(const char *s, int c);
+a_list		*ft_make_struct(const char *format, ...);
 void		ft_error(int code);
 int			ft_printf(const char *format, ...);
 // char	*ft_strchr(const char *s, int c);

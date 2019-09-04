@@ -11,7 +11,7 @@ INCLUDES = ./includes
 C_FILES = 	ft_printf.c\
 			ft_errors.c
 
-HEADER = includes/ft_printf.h
+HEADER = $(INCLUDES)/ft_printf.h
 
 SRCS = $(addprefix $(DIR_S)/,$(C_FILES))
 

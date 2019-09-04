@@ -15,13 +15,14 @@
 // 	return ();
 // }
 
-a_list		fill_struct_wo_args(char *str)
+a_list		*fill_struct_wo_args(char *str)
 {
 	a_list			*first;
 	a_list			*tmp;
 	unsigned int	counter;
 
-	firsrt = NULL;
+	first = NULL;
+	counter = 0;
 	while (str)
 	{
 		if (*str == '%')
@@ -44,7 +45,7 @@ a_list		fill_struct_wo_args(char *str)
 			// tmp->type = NULL;
 			tmp->next = NULL;
 // jump to the next list 
-			tmp = tmp->next
+			tmp = tmp->next;
 		}
 		else
 			str++;
@@ -54,14 +55,13 @@ a_list		fill_struct_wo_args(char *str)
 
 a_list		*ft_make_struct(const char *format, ...)
 {
-	char        *str;
 	a_list		*first_arg;
-	va_list		args;
+	// va_list		args;
 	
 	if (!(ft_strchr(format, '%')))
 		return (NULL);
 
-	first_arg = fill_struct_wo_args((char)format);
+	first_arg = fill_struct_wo_args((char*)format);
 
 	// va_start(args, format);
 

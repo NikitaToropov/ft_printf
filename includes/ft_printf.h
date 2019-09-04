@@ -18,9 +18,9 @@ typedef struct		s_list
 	struct s_list	*next;
 }					a_list;
 
+void		ft_error(int code);
 char		*ft_strchr(const char *s, int c);
 a_list		*ft_make_struct(const char *format, ...);
-void		ft_error(int code);
 int			ft_printf(const char *format, ...);
 // char	*ft_strchr(const char *s, int c);
 

@@ -15,28 +15,28 @@ HEADER = includes/ft_printf.h
 
 SRCS = $(addprefix $(DIR_S)/,$(C_FILES))
 
-OBJS = $(C_FILES:.c=.o)
+OBJS = $(addprefix $(DIR_O)/,$(C_FILES:.c=.o))
 
 # flags
-FLAGS = -Wall -Werror -Wextra
 CC = gcc
+FLAGS = -Wall -Werror -Wextra
 
 .PHONY: all clean fclean re
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(DIR_O) $(OBJS)
 	ar rc $(NAME) $(OBJS)
 	ranlib $(NAME)
 
-$(OBJS):
+$(DIR_O):
 	mkdir -p objs
-	
-%.o: $(DIR_S)/%.c $(HEADER)
+
+$(DIR_O)/%.o: $(DIR_S)/%.c $(HEADER)
 	$(CC) $(FLAGS) -I $(INCLUDES) -c ./$< -o $@
-	
+
 clean:
-	rm -f $(OBJS)
+	rm -rf $(DIR_O)
 
 fclean: clean
 	rm -f $(NAME)

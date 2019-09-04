@@ -6,9 +6,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-
-
-
 typedef struct		m_list
 {
 	char			flags[6]; // или  enum

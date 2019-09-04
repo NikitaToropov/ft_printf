@@ -6,21 +6,27 @@
 #    By: fjenae <fjenae@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/29 19:37:13 by fjenae            #+#    #+#              #
-#    Updated: 2019/08/29 20:32:48 by fjenae           ###   ########.fr        #
+#    Updated: 2019/09/04 21:28:38 by fjenae           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+OBJ_DIR_CORE = objects_core
+
+SRC_DIR_CORE = sources
 
 CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-NAME = printf
+NAME = printflib.a
 
 HEADERS = printf.h
 
-OBJECTS = main.o
+SOURCES = printf.c
 
-SOURCES = main.c
+OBJECTS = $()
+
+
 
 all: $(NAME)
 

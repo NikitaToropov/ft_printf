@@ -6,7 +6,7 @@
 #    By: fjenae <fjenae@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/29 19:37:13 by fjenae            #+#    #+#              #
-#    Updated: 2019/09/05 21:52:00 by fjenae           ###   ########.fr        #
+#    Updated: 2019/09/05 21:52:27 by fjenae           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,6 @@ OBJ_DIR_CORE = objects_core
 SRC_DIR_CORE = sources_core
 OBJ_DIR_LIB = object_lib
 SRC_DIR_LIB = libft
-
-
-
 
 NAME_PRINTF = libftprintf.a
 NAME_LIBFT = libft.a

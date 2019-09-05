@@ -11,7 +11,8 @@ INCLUDES = ./includes
 C_FILES = 	ft_printf.c\
 			ft_errors.c\
 			ft_strchr.c\
-			ft_make_struct.c
+			ft_make_struct.c\
+			ft_clear_the_struct.c
 
 
 HEADER = $(INCLUDES)/ft_printf.h

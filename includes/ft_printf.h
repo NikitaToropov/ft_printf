@@ -3,8 +3,9 @@
 
 # include <stdarg.h>
 # include <unistd.h>
-# include <stdio.h>
 # include <stdlib.h>
+
+# include <stdio.h> // dont rmmbr
 
 typedef struct		s_list
 {
@@ -19,6 +20,7 @@ typedef struct		s_list
 }					a_list;
 
 void		ft_error(int code);
+void		ft_clear_the_struct(a_list **first);
 char		*ft_strchr(const char *s, int c);
 a_list		*ft_make_struct(const char *format, ...);
 int			ft_printf(const char *format, ...);

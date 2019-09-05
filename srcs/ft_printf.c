@@ -10,9 +10,10 @@ int			ft_printf(const char *format, ...)
 	// ft_testing(format);
 	// return (num_of_symbls);
 	first_arg = ft_make_struct(format);
-	printf("yo\n");
+	ft_clear_the_struct(&first_arg);
 	while (first_arg)
 	{
+		printf("YO?\n"); 
 		write(1, &(first_arg->flags), 1);
 		first_arg = first_arg->next;
 	}

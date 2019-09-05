@@ -6,20 +6,18 @@
 /*   By: fjenae <fjenae@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 19:36:05 by fjenae            #+#    #+#             */
-/*   Updated: 2019/09/04 21:11:35 by fjenae           ###   ########.fr       */
+/*   Updated: 2019/09/05 19:47:01 by fjenae           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void	printf(int	k)
+void	ft_printf(int	k)
 {
-	int     m;
-
-	m = 0;
-	while (m != 10)
+	k = 0;
+	while (k != 10)
 	{
-		ft_putstr(m);
-		m++;
+		ft_putnbr(k);
+		k++;
 	}
 }

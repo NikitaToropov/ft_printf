@@ -6,7 +6,7 @@
 /*   By: fjenae <fjenae@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 19:38:04 by fjenae            #+#    #+#             */
-/*   Updated: 2019/09/04 21:11:10 by fjenae           ###   ########.fr       */
+/*   Updated: 2019/09/05 19:49:17 by fjenae           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 # define PRINTF_H
 # include "./libft/libft.h"
 
-void	printf(int	k)
+void	ft_printf(int	k);
 
 #endif

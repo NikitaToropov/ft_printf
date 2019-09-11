@@ -14,7 +14,7 @@ typedef struct		s_list
 	long int		width; // узнать
 	long int		precision; // тоже
 	char			*lenght;
-	char			type;
+	char			type; //OK
 	void			*arg;
 	struct s_list	*next;
 }					a_list;

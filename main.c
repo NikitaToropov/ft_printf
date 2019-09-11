@@ -2,11 +2,11 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-char	ft_put_letter(unsigned int remainder, unsigned int base)
+char	ft_put_letter(unsigned int remainder)
 {
-	char 	l[] = "aabcdef";
+	char 	l[] = "abcdef";
 
-	return (l[base]);
+	return (l[remainder - 10]);
 }
 
 unsigned int	ft_uns_n_len(unsigned long long nb, int base)
@@ -27,7 +27,6 @@ char	*ft_uns_itoa_base(unsigned long long n, unsigned int base)
 	char					*str;
 	unsigned int			len;
 	unsigned int			remainder;
-	char					c;
 
 	len = ft_uns_n_len(n, base);
 	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
@@ -37,10 +36,9 @@ char	*ft_uns_itoa_base(unsigned long long n, unsigned int base)
 	while (n > 0)
 	{
 		if ((remainder = n % base) > 9)
-			c = ft_put_letter(remainder, base);
+			str[--len] = ft_put_letter(remainder);
 		else
-			c = remainder + '0';
-		str[--len] = c;
+			str[--len] = remainder + '0';
 		n /= base;
 	}
 	return (str);
@@ -49,12 +47,12 @@ char	*ft_uns_itoa_base(unsigned long long n, unsigned int base)
 
 int		main(void)
 {	
-	int	i = 16;
+	unsigned long long	i = -429557772956666;
 	// int	i = 1234578901238675435;
-	long long	b;
+	unsigned long long	b;
 
- 	printf("it's real %x\n", i);
-	// b = (short)i;
- 	printf("it's itoa %s\n", ft_uns_itoa_base(b, 16));
+ 	printf("it's real %u\n", i);
+	b = i;
+ 	printf("it's itoa %s\n", ft_uns_itoa_base(b, 10));
 	return (0);
 }

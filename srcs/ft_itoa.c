@@ -41,6 +41,8 @@ char	*ft_itoa(long long n)
 	return (str);
 }
 
+// перед тем как пихать в итоа касти таким образом:
+
 // FOR "lld/lli"
 	// int	i = -12345678901238675435;
 	// long long	b;

@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
+#include "ft_printf.h"
 
 char	ft_put_letter(unsigned int remainder)
 {
@@ -43,3 +41,7 @@ char	*ft_uns_itoa_base(unsigned long long n, unsigned int base)
 	}
 	return (str);
 }
+
+// получаем аргументы как:
+// va_argv(ap, unsigned long long)
+// внутри вызова итоа кастим в соответствующий тип

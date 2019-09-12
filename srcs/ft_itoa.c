@@ -1,5 +1,4 @@
-#include <unistd.h>
-#include <stdlib.h>
+#include "ft_printf.h"
 
 unsigned int	ft_n_len(long long nb)
 {
@@ -41,24 +40,7 @@ char	*ft_itoa(long long n)
 	return (str);
 }
 
-// перед тем как пихать в итоа касти таким образом:
 
-// FOR "lld/lli"
-	// int	i = -12345678901238675435;
-	// long long	b;
-	
-	// b = (long long)(i) & 4294967295;
-	// ft_itoa(b)
-
-// FOR "ld/li"
-	// int	i = -12345678901238675435;
-	// long long	b;
-
-	// b = (long)(i) & 4294967295;
- 	// ft_itoa(b);
-
-// FOR "hhd/hhi"
-	// b = (char)i;
-
-// FOR "hd/hi"
-	// b = (short)i;
+// получаем аргументы как:
+// va_argv(ap, long long)
+// внутри вызова итоа кастим в соответствующий тип: hhd ft_itoa((char)i)

@@ -20,7 +20,7 @@ typedef struct		s_list
 }					a_list;
 
 char		*ft_itoa(long long n);
-char		*ft_uns_itoa_base(unsigned long long n, unsigned int base);
+char		*ft_uns_itoa_base_wregister(unsigned long long n, unsigned int base, int X);
 void		ft_error(int code);
 void		ft_clear_the_struct(a_list **first);
 char		*ft_strchr(const char *s, int c);

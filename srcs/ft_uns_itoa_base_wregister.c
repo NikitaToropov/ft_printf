@@ -1,6 +1,4 @@
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include "ft_printf.h"
 
 char	ft_put_letter(unsigned int remainder, int X)
 {
@@ -10,6 +8,7 @@ char	ft_put_letter(unsigned int remainder, int X)
 	if (X)
 		return (L[remainder - 10]);
 	return (l[remainder - 10]);
+
 }
 
 unsigned int	ft_uns_len(unsigned long long nb, int base)
@@ -45,11 +44,6 @@ char	*ft_uns_itoa_base_wregister(unsigned long long n, unsigned int base, int X)
 	return (result);
 }
 
-int		main(void)
-{	
-	long long	i = -922337203685477580;
-
- 	printf("original %llx\n", i);
-	printf("our itoa %s", ft_uns_itoa_base_wregister(i, 16, 0));
-	return (0);
-}
+// получаем аргументы как:
+// va_argv(ap, unsigned long long)
+// внутри вызова итоа кастим в соответствующий тип

@@ -13,7 +13,7 @@ C_FILES = 	ft_printf.c\
 			ft_strchr.c\
 			ft_make_struct.c\
 			ft_clear_the_struct.c\
-			ft_uns_itoa_base.c\
+			ft_uns_itoa_base_wregister.c\
 			ft_itoa.c\
 
 

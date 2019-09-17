@@ -14,8 +14,15 @@
 //			1. format string parsing
 //			2. va_arg parsing depending on:
 //				A. smallest arguments (all struct) in:
-//				"n_arg_width", "n_arg_precision", "n_arg", 
-//			3. format string parsing
+//					a. "n_arg_width" (int)
+//				 	b. "n_arg_precision" (int)
+//					c. "n_arg" (int -> signed/unsigned long long, *void, )
+//			3. argument string modifying:
+//				A. length (malloc)
+//				B. precision (malloc, free)
+//				C. width (malloc, free)
+//				D. flags (malloc, free)
+//			4. printing
 
 
 typedef struct		s_list
@@ -29,8 +36,8 @@ typedef struct		s_list
 	long int		precision;
 	int				n_arg_precision;//OK если есть '*', то > 0	
 
-	char			lenght;//OK побитово 4 варианта
-	char			type;//OK 11 вариантов, хватит 4х битов
+	char			length;//OK побитово 4 варианта
+	char			type;//OK s,c,p,i/d,x,X,u,o,f,% (11)
 
 	char			*arg;//OK будем хранить строку
 	int				n_arg;

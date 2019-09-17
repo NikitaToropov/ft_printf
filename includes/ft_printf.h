@@ -7,6 +7,17 @@
 
 # include <stdio.h> // dont rmmbr
 
+//Syntax:
+//			%[parameter][flags][width][.precision][length]type
+
+//Processing order:
+//			1. format string parsing
+//			2. va_arg parsing depending on:
+//				A. smallest arguments (all struct) in:
+//				"n_arg_width", "n_arg_precision", "n_arg", 
+//			3. format string parsing
+
+
 typedef struct		s_list
 {
 	unsigned int	parameter;// помни что порядок наследуется (см. тетрадь)

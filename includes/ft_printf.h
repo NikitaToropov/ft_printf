@@ -1,33 +1,36 @@
 #ifndef FT_PRINTF_H
+
 # define FT_PRINTF_H
 
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdlib.h>
 
+# include <locale.h> // dont rmmbr
 # include <stdio.h> // dont rmmbr
 
 //Syntax:
 //			%[parameter][flags][width][.precision][length]type
 
 //Processing order:
-//			1. format string parsing
+//			1. format string parsing "ft_make_struct"
 //			2. va_arg parsing depending on:
 //				A. smallest arguments (all struct) in:
-//					a. "n_arg_width" (int)
-//				 	b. "n_arg_precision" (int)
-//					c. "n_arg" (int -> signed/unsigned long long, *void, )
+//					a. "parameter" (int)
+//					b. "n_arg_width" (int)	
+//				 	c. "n_arg_precision" (int)
+//					d. "n_arg" (int -> signed/unsigned long long, *void, )
 //			3. argument string modifying:
 //				A. length (malloc)
 //				B. precision (malloc, free)
 //				C. width (malloc, free)
 //				D. flags (malloc, free)
-//			4. printing
+//			4. 
 
 
 typedef struct		s_list
 {
-	unsigned int	parameter;// помни что порядок наследуется (см. тетрадь)
+	unsigned int	parameter;// помни что порядок наследуе	тся (см. тетрадь)
 	char			flags;//OK 5 вариантов, хватит 3х битов
 
 	int				width;//OK хватит границ инта
@@ -41,12 +44,18 @@ typedef struct		s_list
 
 	char			*arg;//OK будем хранить строку
 	int				n_arg;
+	int				n_of_list;
 	
 	struct s_list	*next;
 }					a_list;
 
+char		ft_find_type(char *str);
+unsigned int	ft_find_parameter(char *str, char type);
+
+
+int			ft_atoi(const char *str);
 char		*ft_itoa(long long n);
-char		*ft_uns_itoa_base_wregister(unsigned long long n, unsigned int base, int X);
+char		*ft_uns_itoa_base_wregister(unsigned long long n, int base, int X);
 void		ft_error(int code);
 void		ft_clear_the_struct(a_list **first);
 char		*ft_strchr(const char *s, int c);

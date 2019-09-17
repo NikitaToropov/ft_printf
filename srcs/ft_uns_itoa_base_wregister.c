@@ -21,7 +21,7 @@ unsigned int	ft_uns_len(unsigned long long nb, int base)
 	return (ln);
 }
 
-char	*ft_uns_itoa_base_wregister(unsigned long long n, unsigned int base, int X)
+char	*ft_uns_itoa_base_wregister(unsigned long long n, int base, int X)
 {
 	char					*result;
 	unsigned int			len;
@@ -39,7 +39,7 @@ char	*ft_uns_itoa_base_wregister(unsigned long long n, unsigned int base, int X)
 			result[--len] = ft_put_letter(remainder, X);
 		else
 			result[--len] = remainder + '0';
-		n /= base;
+		n /= (long long)base;
 	}
 	return (result);
 }

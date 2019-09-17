@@ -2,13 +2,9 @@
 
 int		main(void)
 {	
-	int			i = 6;
-	int 		a = 12;
-	
- 	// printf("%i  %f\n", i, a);
- 	// printf("%i\n", a, i);
- 	printf("%.15p", &i, a);
-	// printf("our itoa %s", ft_uns_itoa_base_wregister(i, 16, 0));
+	int		a = 1;
 
+
+	ft_printf("%2$d %34$f %s %% %%");
 	return (0);
 }

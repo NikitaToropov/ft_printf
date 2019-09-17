@@ -7,15 +7,14 @@ int			ft_printf(const char *format, ...)
 	int			num_of_chars;
 
 	num_of_chars = 0;
-	// ft_testing(format);
-	// return (num_of_symbls);
 	first_arg = ft_make_struct(format);
-	ft_clear_the_struct(&first_arg);
 	while (first_arg)
 	{
-		printf("YO?\n"); 
-		write(1, &(first_arg->flags), 1);
+		// write(1, &(first_arg->type), 1);
+		printf("TYPE is '%c'\n", first_arg->type);
+		printf("PARAM is '%d'\n\n", first_arg->parameter);
 		first_arg = first_arg->next;
 	}
+	ft_clear_the_struct(&first_arg);
 	return (num_of_chars);
 }

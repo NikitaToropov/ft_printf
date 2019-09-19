@@ -33,6 +33,14 @@ typedef struct		s_list
 	unsigned int	parameter;// помни что порядок наследуе	тся (см. тетрадь)
 	char			flags;//OK 5 вариантов, хватит 3х битов
 
+// FLAGS:
+	// 	HASH == (char)1;
+	// 	ZERO == (char)2;
+	// 	MINUS == (char)4;
+	// 	MINUS == (char)8;
+	// 	MINUS == (char)16;
+	// 	APOSTROPHE == (char)32;
+
 	int				width;//OK хватит границ инта
 	int				n_arg_width;//OK если есть '*', то > 0	
 
@@ -40,7 +48,9 @@ typedef struct		s_list
 	int				n_arg_precision;//OK если есть '*', то > 0	
 
 	char			length;//OK побитово 4 варианта
+
 	char			type;//OK s,c,p,i/d,x,X,u,o,f,% (11)
+	// i = d => d
 
 	char			*arg;//OK будем хранить строку
 	int				n_arg;
@@ -51,6 +61,8 @@ typedef struct		s_list
 
 char		ft_find_type(char *str);
 unsigned int	ft_find_parameter(char *str, char type);
+char	ft_find_length(char *str, char type);
+char	ft_find_flags(char *str, char type);
 
 
 int			ft_atoi(const char *str);

@@ -31,11 +31,16 @@ a_list		*fill_struct_wo_args(char *str)
 			if (!(tmp_list->type = ft_find_type(str)) ||
 			tmp_list->type == '%')
 			{
+// НЕ ЗАБУДЬ ЗАНУЛИТЬ ВСЕ ПОЛЯ В ЭТОМ СЛУЧАЕ
+				while (*str && *str != '%')
+					str++;
 				str++;
 				continue;
 			}
 			tmp_list->n_of_list = counter;
 			tmp_list->parameter = ft_find_parameter(str, tmp_list->type);
+			tmp_list->length = ft_find_length(str, tmp_list->type);
+			tmp_list->flags = ft_find_flags(str, tmp_list->type);
 		}
 		else
 			str++;

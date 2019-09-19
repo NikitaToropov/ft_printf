@@ -12,7 +12,9 @@ int			ft_printf(const char *format, ...)
 	{
 		// write(1, &(first_arg->type), 1);
 		printf("TYPE is '%c'\n", first_arg->type);
-		printf("PARAM is '%d'\n\n", first_arg->parameter);
+		printf("PARAM is '%d'\n", first_arg->parameter);
+		printf("LENGTH is '%c'\n", first_arg->length);
+		printf("FLAGS is '%i'\n\n", (int)(first_arg->flags));
 		first_arg = first_arg->next;
 	}
 	ft_clear_the_struct(&first_arg);

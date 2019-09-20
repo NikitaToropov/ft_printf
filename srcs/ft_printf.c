@@ -11,10 +11,12 @@ int			ft_printf(const char *format, ...)
 	while (first_arg)
 	{
 		// write(1, &(first_arg->type), 1);
-		printf("TYPE is '%c'\n", first_arg->type);
 		printf("PARAM is '%d'\n", first_arg->parameter);
+		printf("FLAGS is '%i'\n", (int)(first_arg->flags));
+		printf("WIDTH is '%i' N_ARG_WIDTH is '%i'\n", first_arg->width, first_arg->n_arg_width);
+		printf("PRECISS is '%i' N_ARG_PRECISS is '%i'\n", first_arg->precision, first_arg->n_arg_precision);
 		printf("LENGTH is '%c'\n", first_arg->length);
-		printf("FLAGS is '%i'\n\n", (int)(first_arg->flags));
+		printf("TYPE is '%c'\n\n", first_arg->type);
 		first_arg = first_arg->next;
 	}
 	ft_clear_the_struct(&first_arg);

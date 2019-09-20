@@ -4,10 +4,10 @@ int		main(void)
 {	
 	int		a = 1;
 	int		b = 2;
-	int		c = 3;
-	char	v = 126;
+	int		c = 4;
+	char	*v = "126";
 
-	ft_printf("%ll#l2$d %llll04&% %12$  3$34$hhhf %hhh   hs");
-	// printf("%c\n", '\'');
+	ft_printf("%>12$#+- 22$0d");
+	// printf("%>12$#+- 22$0d", 1234567);
 	return (0);
 }

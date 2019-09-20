@@ -9,8 +9,6 @@
 # include <locale.h> // dont rmmbr
 # include <stdio.h> // dont rmmbr
 
-//Syntax:
-//			%[parameter][flags][width][.precision][length]type
 
 //Processing order:
 //			1. format string parsing "ft_make_struct"
@@ -27,10 +25,12 @@
 //				D. flags (malloc, free)
 //			4. 
 
+//Syntax:
+//			%[parameter][flags][width][.precision][length]type
 
 typedef struct		s_list
 {
-	unsigned int	parameter;// помни что порядок наследуе	тся (см. тетрадь)
+	int				parameter;//OK помни что порядок наследуе	тся (см. тетрадь)
 	char			flags;//OK 5 вариантов, хватит 3х битов
 
 // FLAGS:
@@ -41,28 +41,33 @@ typedef struct		s_list
 	// 	MINUS == (char)16;
 	// 	APOSTROPHE == (char)32;
 
-	int				width;//OK хватит границ инта
-	int				n_arg_width;//OK если есть '*', то > 0	
+	int				width;//хватит границ инта
+	int				n_arg_width;//если есть '*', то > 0	
 
-	long int		precision;
-	int				n_arg_precision;//OK если есть '*', то > 0	
+	int				precision;
+	int				n_arg_precision;//если есть '*', то > 0	
 
 	char			length;//OK побитово 4 варианта
 
-	char			type;//OK s,c,p,i/d,x,X,u,o,f,% (11)
+	char			type;//OK s,c,p,i/d,x,X,u,o,f,% (12)
 	// i = d => d
 
-	char			*arg;//OK будем хранить строку
+	char			*arg;// будем хранить строку
 	int				n_arg;
-	int				n_of_list;
+	unsigned int				n_of_list; //ok
 	
-	struct s_list	*next;
+	struct s_list	*next; //OK
 }					a_list;
 
+// unsigned int	ft_find_parameter(char *str, char type);
+// char	ft_find_length(char *str, char type);
+// char	ft_find_flags(char *str, char type);
+// void	ft_find_width_and_precission(char *str, a_list *list);
 char		ft_find_type(char *str);
-unsigned int	ft_find_parameter(char *str, char type);
-char	ft_find_length(char *str, char type);
-char	ft_find_flags(char *str, char type);
+int		is_it_parameter(char *str, a_list *list);
+int		is_it_flag(char symbol, a_list *list);
+
+
 
 
 int			ft_atoi(const char *str);

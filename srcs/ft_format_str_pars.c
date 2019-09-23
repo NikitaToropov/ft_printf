@@ -83,121 +83,93 @@ int		is_it_flag(char symbol, a_list *list)
 	return (0);
 }
 
-// int		is_it_width(char *str, a_list *list)
-// {}
+int		is_it_length(char *str, a_list *list)
+{
+// 'H' == "hh"
+// 'h' == "h"
+// 'L' == "ll"
+// 'l' == "l"
 
-// char	ft_find_length(char *str, char type)
-// {
-// 	char	len;
+	if (!*str)
+		return (0);
+	else if (str[0] == 'h' && str[1] == 'h')
+	{
+		list->length = 'H';
+		return (2);
+	}
+	else if (str[0] == 'l' && str[1] == 'l')
+	{
+		list->length = 'L';
+		return (2);
+	}
+	else if (str[0] == 'h')
+	{
+		list->length = 'h';
+		return (1);
+	}
+	else if (str[0] == 'l')
+	{
+		list->length = 'l';
+		return (1);
+	}
+	return (0);
+}
 
-// 	len = 0;
-// 	while (*str != type)
-// 	{
-// 		if ((*str == 'l' && str[1] == 'l') ||
-// 		(*str == 'h' && str[1] == 'h'))
-// 		{
-// 			if ((*str == 'l') && (str[1] == 'l'))
-// 				len = 'L';
-// 			if ((*str == 'h') && (str[1] == 'h'))
-// 				len = 'H';
-// 			str += 2;
-// 		}
-// 		else
-// 		{
-// 			if (*str == 'l')
-// 				len = 'l';
-// 			if (*str == 'h')
-// 				len = 'h';
-// 			str++;
-// 		}		
-// 	}
-// 	return (len);
-// }
+int		is_it_width(char *str, a_list *list)
+{
+	char	*tmp;
 
+	if (*str == '*')
+	{
+		if (list->n_arg_precision)
+		{
+			list->n_arg_precision = 1;
+			list->n_arg_width = 2;
+		}
+		else
+			list->n_arg_width = 1;
+		list->width = -1;
+		return (1);
+	}
 
-// char	ft_find_flags(char *str, char type)
-// {
-// 	char	flags;
-// 	// FLAGS:
-// 	// 	HASH == (char)1;
-// 	// 	ZERO == (char)2;
-// 	// 	MINUS == (char)4;
-// 	// 	MINUS == (char)8;
-// 	// 	MINUS == (char)16;
-// 	// 	APOSTROPHE == (char)32;
+	if (*str <= '0' || *str >= '9')
+		return (0);
 
-// 	flags = 0;
-// 	while (*str != type)
-// 	{
-// 		if (*str == '#')
-// 			flags |= 1;
-// 		else if (*str == '0')
-// 			flags |= 2;
-// 		else if (*str == '-')
-// 			flags |= 4;
-// 		else if (*str == ' ')
-// 			flags |= 8;
-// 		else if (*str == '+')
-// 			flags |= 16;
-// 		else if (*str == '\'')
-// 			flags |= 32;
-// 		str++;			
-// 	}
-// 	if (type == 'c' || type == 'd' ||
-// 	type == 'p' || type == 's')
-// 		flags &= 62; //ignore flag '#'
-// 	if (flags & 16)
-// 		flags &= 47;
-// 	return (flags);
-// }
+	tmp = str;
+	while (*tmp >= '0' && *tmp <= '9')
+		tmp++;
+	if (*tmp == '$')
+		return (0);
+	list->width = ft_atoi(str);
+	list->n_arg_width = 0;
+	return ((int)(tmp - str));
+}
 
-// void	ft_find_width_and_precission(char *str, a_list *list)
-// {
-// 	int			counter;
-// 	char		*tmp;
+int		is_it_precission(char *str, a_list *list)
+{
+	char	*tmp;
 
-// 	counter = 1;
-// 	list->n_arg_width = 0;
-// 	list->width = 0;
-// 	list->n_arg_precision = 0;
-// 	list->precision = 0;
-// 	while (*str && *str != list->type)
-// 	{
-// 		if ((*str >= '0' && *str <= '9'))
-// 		{
-// 			tmp = str;
-// 			while (*str >= '0' && *str <= '9')
-// 				str++;
-// 			if ()
-// 			list->n_arg_width = 0;
-// 			list->width = ft_atoi(str);
-// 		}
-// 		else if (*str == '*')
-// 		{
-// 			list->width = 0;
-// 			list->n_arg_width = counter;
-// 			str++;
-// 			counter++;
-// 		}
-// 		else if (*str == '.')
-// 		{
-// 			str++;
-// 			if (*str == '*')
-// 			{
-// 				list->precision = 0;
-// 				list->n_arg_precision = counter;
-// 				counter++;
-// 				str++;
-// 			}
-// 			else if (*str >= '0' && *str <= '9')
-// 			{
-// 				list->n_arg_precision = 0;
-// 				list->precision = ft_atoi(str);
-// 				while (*str >= '0' && *str <= '9')
-// 					str++;
-// 			}
-// 		}
-// 		else
-// 			str++;
-// 	}
-// }
+	if (*str != '.')
+		return (0);
+	if (str[1] == '*')
+	{
+		if (list->n_arg_width)
+		{
+			list->n_arg_width = 1;
+			list->n_arg_precision = 2;
+		}
+		else
+			list->n_arg_precision = 1;
+		list->precision = -1;
+		return (2);
+	}
+
+	tmp = &str[1];
+	while(*tmp >= '0' && *tmp <= '9')
+		tmp++;
+	if (tmp == &str[1])
+		return (0);
+	list->precision = ft_atoi(&str[1]);
+	list->n_arg_precision = 0;	
+	return ((int)(tmp - str));
+}

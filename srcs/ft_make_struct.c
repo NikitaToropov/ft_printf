@@ -6,9 +6,9 @@ a_list		*ft_make_blank_list(unsigned int num_of_list)
 
 	if (!(list = malloc(sizeof(a_list))))
 		ft_error(0);
-	list->width = 0;
+	list->width = -1; // don't know why BUT Check this shit!!!
 	list->n_arg_width = 0;
-	list->precision = 0;
+	list->precision = -1; // don't know why BUT Check this shit!!!
 	list->n_arg_precision = 0;
 
 	list->length = 0;
@@ -20,59 +20,11 @@ a_list		*ft_make_blank_list(unsigned int num_of_list)
 	return (list);
 }
 
-// a_list		*fill_struct_wo_args(char *str)
-// {
-// 	a_list			*first_list;
-// 	a_list			*tmp_list;
-// 	unsigned int	counter;
-
-// 	first_list = NULL;
-// 	counter = 0;
-// 	while (*str)
-// 	{
-// 		if (*str == '%')
-// 		{
-// 			counter++;
-// 			if (!first_list)
-// 			{
-// 				if (!(first_list = (a_list*)malloc(sizeof(a_list))))
-// 					ft_error(0);
-// 				tmp_list = first_list;
-// 			}
-// 			else
-// 			{
-// 				if (!(tmp_list->next = (a_list*)malloc(sizeof(a_list))))
-// 					ft_error(0);
-// 				tmp_list = tmp_list->next;
-// 			}
-// 			str++; //one step to first_list modifier
-// 			tmp_list->next = NULL;
-// 			if (!(tmp_list->type = ft_find_type(str)) ||
-// 			tmp_list->type == '%')
-// // 			{
-// // // НЕ ЗАБУДЬ ЗАНУЛИТЬ ВСЕ ПОЛЯ В ЭТОМ СЛУЧАЕ
-// // 				while (*str && *str != '%')
-// // 					str++;
-// // 				str++;
-// // 				continue;
-// // 			}
-// // 			tmp_list->n_of_list = counter;
-// // 			tmp_list->parameter = ft_find_parameter(str, tmp_list->type);
-// // 			tmp_list->length = ft_find_length(str, tmp_list->type);
-// // 			tmp_list->flags = ft_find_flags(str, tmp_list->type);
-// 		}
-// 		else
-// 			str++;
-// 	}
-// 	return (first_list);
-// }
-
 a_list		*fill_struct_wo_args(char *str)
 {
 	a_list			*first_list;
 	a_list			*tmp_list;
 	unsigned int	num_of_list;
-	unsigned int	args_counter;
 	char			*tmp_str;
 
 
@@ -86,44 +38,33 @@ a_list		*fill_struct_wo_args(char *str)
 			num_of_list++;
 			if (!first_list)
 			{
-				first_list = ft_make_blank_list(num_of_list);
-				tmp_list = first_list; 
+				tmp_list = ft_make_blank_list(num_of_list);
+				first_list = tmp_list;  
 			}
 			else
 			{
 				tmp_list->next = ft_make_blank_list(num_of_list);
 				tmp_list = tmp_list->next;
 			}
+			
 			tmp_list->type = ft_find_type(str);
-			if (!tmp_list->type)
-				return (first_list);
-			else if (tmp_list->type == '%')
+			while (*str != tmp_list->type)
 			{
-				while (*str != '%')
-					str++;
-				str++;
-			}
-			else
-			{
-				args_counter = 1;
 				tmp_str = str;
-				while (*str != tmp_list->type)
-				{
-					str += is_it_parameter(str, tmp_list);
-					str += is_it_flag(*str, tmp_list);
-					// str += is_it_width(str, tmp_list);
-					// str += is_it_precission;
-					// str += is_it_length;
+				str += is_it_parameter(str, tmp_list);
+				str += is_it_flag(*str, tmp_list);
+				str += is_it_length(str, tmp_list);
+				str += is_it_width(str, tmp_list);
+				str += is_it_precission(str, tmp_list);
 
-					if (tmp_str == str)
-					{
-						tmp_list->type = 0;
-						break ;
-					}
-
-					// printf("YOYOYOY   %s\n\n", str);
+				if (tmp_str == str) // to exit the cyclсe 
+				{	
+					tmp_list->type = *str;
+					break ;
 				}
 			}
+			if (*str)
+				str++;  // one step for step over the type
 		}
 		else
 			str++;

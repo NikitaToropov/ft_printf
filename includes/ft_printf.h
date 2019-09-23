@@ -59,14 +59,12 @@ typedef struct		s_list
 	struct s_list	*next; //OK
 }					a_list;
 
-// unsigned int	ft_find_parameter(char *str, char type);
-// char	ft_find_length(char *str, char type);
-// char	ft_find_flags(char *str, char type);
-// void	ft_find_width_and_precission(char *str, a_list *list);
 char		ft_find_type(char *str);
-int		is_it_parameter(char *str, a_list *list);
-int		is_it_flag(char symbol, a_list *list);
-
+int			is_it_parameter(char *str, a_list *list);
+int			is_it_flag(char symbol, a_list *list);
+int			is_it_length(char *str, a_list *list);
+int			is_it_width(char *str, a_list *list);
+int			is_it_precission(char *str, a_list *list);
 
 
 

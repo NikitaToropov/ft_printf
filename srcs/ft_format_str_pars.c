@@ -26,6 +26,12 @@ char	ft_find_type(char *str)
 			return ('f');
 		else if (*str == '%')
 			return ('%');
+		else if (*str == 'b')
+			return ('b');
+		else if (*str == 'r')
+			return ('r');
+		// else if (*str == 'k')
+		// 	return ('k');
 		str++;
 	}
 	return ('\0');

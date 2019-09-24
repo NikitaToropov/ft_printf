@@ -1,5 +1,53 @@
 #include "ft_printf.h"
 
+int		type_is_real(char c)
+{
+	if (c == 'c' || c == 's' ||
+	c == 'p' || c == 'i' ||
+	c == 'd' || c == 'u' ||
+	c == 'o' || c == 'x' ||
+	c == 'X' || c == 'f' ||
+	c == 'b' || c == 'r')
+		return (1);
+	return (0);
+}
+
+void	args_order(a_list *list)
+{
+	int		counter;
+
+	counter = 1;
+	while (list)
+	{
+		if (list->parameter)
+			counter = list->parameter;
+		if (list->n_arg_width)
+		{
+			if (list->n_arg_width == 1)
+				list->n_arg_width = counter;
+			else if (list->n_arg_width == 2)
+				list->n_arg_width = counter + 1;
+		}
+		if (list->n_arg_precision)
+		{
+			if (list->n_arg_precision == 1)
+				list->n_arg_precision = counter;
+			else if (list->n_arg_precision == 2)
+				list->n_arg_precision = counter + 1;
+		}
+		if (list->n_arg_width)
+			counter++;
+		if (list->n_arg_precision)
+			counter++;
+		if (type_is_real(list->type))
+		{
+			list->n_arg = counter;
+			counter++;
+		}
+		list = list->next;
+	}
+}
+
 a_list		*ft_make_blank_list(unsigned int num_of_list)
 {
 	a_list		*list;
@@ -27,7 +75,6 @@ a_list		*fill_struct_wo_args(char *str)
 	unsigned int	num_of_list;
 	char			*tmp_str;
 
-
 	first_list = NULL;
 	num_of_list = 0;
 	while (*str)
@@ -46,7 +93,6 @@ a_list		*fill_struct_wo_args(char *str)
 				tmp_list->next = ft_make_blank_list(num_of_list);
 				tmp_list = tmp_list->next;
 			}
-			
 			tmp_list->type = ft_find_type(str);
 			while (*str != tmp_list->type)
 			{
@@ -56,7 +102,6 @@ a_list		*fill_struct_wo_args(char *str)
 				str += is_it_length(str, tmp_list);
 				str += is_it_width(str, tmp_list);
 				str += is_it_precission(str, tmp_list);
-
 				if (tmp_str == str) // to exit the cyclсe 
 				{	
 					tmp_list->type = *str;
@@ -69,6 +114,7 @@ a_list		*fill_struct_wo_args(char *str)
 		else
 			str++;
 	}
+	args_order(first_list);
 	return (first_list);
 }
 

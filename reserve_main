@@ -1,0 +1,39 @@
+    // unsigned char   m = 223;
+    // int     n = -280;
+    // int     k = 678687676;
+    // char    *str = "testarray";
+    // char    *str_precision = "testarray_presision";
+
+    // printf ("test of whole build\n");
+    // ft_printf(3, 25, 27, 30);
+    // printf ("original printf - c %c\n", m);
+    //     // prints blank? why i.e. prints nothing
+    // printf ("original printf - s %s\n", str);
+    //     //prints pointer to array of charachters NO PRECISION
+    // printf ("original printf - s with precision %.15s\n", str_precision);
+    //     //prints pointer to array of charachters WITH PRECISION
+    // printf ("original printf - p - hexadecimal conversion %p\n", str_precision);
+    //     //how does it convert text string to hexadecimal i wonder - (as if by `%#x' or `%#lx') from man
+    // printf ("original printf - d = signed decimal plus %d\n", m);
+    //     //what the difference between d and i
+    // printf ("original printf - d = signed decimal minus %d\n", n);
+    //     //whats the difference beetween d and i again - any particulars here i cant see?
+    // printf ("original printf - i = signed decimal minus %i\n", m);    
+    //     //whats the difference beetween d and i again - any particulars here i cant see?
+    // printf ("original printf - i = signed decimal minus %i\n", n);
+    //     //whats the difference beetween d and i again - any particulars here i cant see?
+    // printf ("original printf - o = unsigned octal plus input %o\n", m);
+    //     //how to convert to unsigned octal    
+    // printf ("original printf - o = unsigned octal plus input %o\n", n);    
+    //     //how is minus converted to unsigned octal
+    // printf ("original printf - o = unsigned octal plus input large number %o\n", k);   
+    //     //how is minus converted to unsigned octal  if k i s too big it wont cdconvert implicit conversion from 'long' to 'int' changes value
+    //     //from 6786876876 to -1803057716
+    // printf ("original printf - u = unsigned decimal plus %u\n", m);    
+    //     //how is this converted again?
+    // printf ("original printf - u = unsigned decimal minus %u\n", n);    
+    //     //how is this converted again? so I have negative int - how is this converted to unsigned decimal -280 = 4294967016
+    // printf ("TESTING MODIFIERS\n\n\n");    
+
+    // printf ("original printf - d = unsigned decimal wtih HH %c\n", (char)m);
+    // printf ("original printf - d = unsigned decimal wtih HH %hhd\n", m);

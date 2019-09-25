@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "stdarg.h": "c",
-        "ft_printf.h": "c"
+        "ft_printf.h": "c",
+        "/sources_core/printf.c": "c"
     }
 }

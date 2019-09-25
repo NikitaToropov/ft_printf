@@ -6,7 +6,7 @@
 #    By: fjenae <fjenae@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/29 19:37:13 by fjenae            #+#    #+#              #
-#    Updated: 2019/09/05 21:52:27 by fjenae           ###   ########.fr        #
+#    Updated: 2019/09/24 13:06:11 by fjenae           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,12 +101,17 @@ OBJECTS_LIBFT = $(addprefix $(OBJ_DIR_LIB)/, $(SOURCES_LIBFT:.c=.o))
 
 all: $(NAME)
 
-$(NAME): $(NAME_PRINTF)
-	$(CC) $(CFLAGS) main.c -L . -lftprintf -o $(NAME) 
+$(NAME): $(NAME_PRINTF) main.c
+	$(CC) $(CFLAGS) -g main.c -L . -lftprintf -o $(NAME) 
+
+# $(NAME_PRINTF): $(OBJ_DIR_CORE) $(OBJECTS_CORE)
+# 	ar rc $(NAME_PRINTF) $(OBJECTS_CORE)
+# 	ranlib $(NAME_PRINTF)	
 
 $(NAME_PRINTF): $(OBJ_DIR_CORE) $(OBJ_DIR_LIB) $(OBJECTS_CORE) $(OBJECTS_LIBFT) 
 	ar rc $(NAME_PRINTF) $(OBJECTS_CORE) $(OBJECTS_LIBFT)
-	ranlib $(NAME_PRINTF)	
+	ranlib $(NAME_PRINTF)
+
 
 $(OBJ_DIR_CORE):
 	mkdir objects_core 

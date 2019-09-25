@@ -2,41 +2,35 @@
 
 int		main(void)
 {	
-	int		a = 1;
-	int		b = 2;
-	int		c = 4;
-	char	*v = "126";
+	long			a = -1;
+	int			b = -2;
+	float		c = 4.0000;
+	char		*v = "126";
 
-	ft_printf("%5$*s %2$.*d %123.4 .*llld");
-	// printf("	\n");
+	// printf("%i, %1$hhi", -1);
+	// b = 
+	// printf("%s\n", ft_itoa(b));
+	// printf("%lli", b);
+	// ft_printf("%5$*s %*<");
+	
+	
+	// ft_printf("%i %d &d\n", -1, 3, -3);
+
+	// printf("%f\n", 1, 2, 3.4);
+	printf("%1$f %1$i\n", 1, 2, 3.4, 5);
+	printf("%1$f %i\n", 1, 2, 3.4, 5);
+	printf("%i %1$f", 1, 2, 3.4, 5);
+
+
+	// printf("%*.*% %i", 2, 3, 4);
+	// printf("%f %1$d", 1, 3.5, 2);
 	// printf("%4	s\n", "1234");
+	// if (a == (float)(a + 0.1))
+	// 	printf("INT\n");
+	// else
+	// 	printf("float\n");
+	// a = a + 0.5;
+	// printf("this is our NUM: '%d'", b);
+	// printf("this is our NUM: '%i'", c);
 	return (0);
 }
-
-
-	// PARAM is '5'
-	// FLAGS is '8'
-	// WIDTH is '1' N_ARG_WIDTH is '0'
-	// PRECISS is '4' N_ARG_PRECISS is '0'
-	// LENGTH is ''
-	// TYPE is 's'
-	// N_ARG is '0'
-	// N_OF_LIST is '1'
-
-	// PARAM is '0'
-	// FLAGS is '8'
-	// WIDTH is '-1' N_ARG_WIDTH is '0'
-	// PRECISS is '-1' N_ARG_PRECISS is '0'
-	// LENGTH is ''
-	// TYPE is '%'
-	// N_ARG is '0'
-	// N_OF_LIST is '2'
-
-	// PARAM is '0'
-	// FLAGS is '8'
-	// WIDTH is '123' N_ARG_WIDTH is '0'
-	// PRECISS is '-1' N_ARG_PRECISS is '1'
-	// LENGTH is 'l'
-	// TYPE is 'd'
-	// N_ARG is '0'
-	// N_OF_LIST is '3'

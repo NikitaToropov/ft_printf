@@ -71,6 +71,8 @@ int			is_it_precission(char *str, a_list *list);
 int			ft_atoi(const char *str);
 char		*ft_itoa(long long n);
 char		*ft_uns_itoa_base_wregister(unsigned long long n, int base, int X);
+a_list		*fill_struct_wo_args(char *str);
+void		fill_struct_w_args(a_list *first_arg, va_list ap);
 void		ft_error(int code);
 void		ft_clear_the_struct(a_list **first);
 char		*ft_strchr(const char *s, int c);

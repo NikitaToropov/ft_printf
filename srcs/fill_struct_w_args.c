@@ -18,47 +18,16 @@ int		find_latest_arg(a_list *list)
 	return (biggest);
 }
 
-void    put_the_arg(a_list *first_list, va_list ap, int number)
+put_args_in_the_list(a_list *list, va_list ap)
+
+void	fill_struct_w_args(a_list *list, va_list ap)
 {
-    a_list      *tmp_list;
-    unsigned long long i;
-    
-    
-    
-    
-    number = 0;
+	// a_list		*tmp_list;
 
-
-
-
-    tmp_list = first_list;
-    i = va_arg(ap, long long int);
-    // printf("%llf\n", i);
-    // printf("%i\n", (int)i);
-    // printf("%f\n", );
-    // printf("%i\n", (int)i);
-    // while (tmp_list)
-    // {
-    //     if (tmp_list->n_arg_precision)
-
-    //     else if (tmp_list->n_arg_width)
-    //     else if (tmp_list->n_arg)
-    //     tmp_list = tmp_list->next;
-    // }
-}
-
-void    fill_struct_w_args(a_list *first_list, va_list ap)
-{
-    int     counter;
-    int     latest_arg;
-
-    latest_arg = find_latest_arg(first_list);
-    counter = 0;
-    // while (counter_arg <= latest_arg)
-    counter++;
-    put_the_arg(first_list, ap, counter);
-    
-    // printf("|%i|\n", latest_arg);
-    // printf("|%i|\n", va_arg(ap, int));
-    // while
+	while (list)
+	{
+		put_args_in_the_list(lsit, ap);
+		list = list->next;
+	}
+	put_the_arg(first_list, ap, counter);
 }

@@ -34,9 +34,9 @@ void    put_the_arg(a_list *first_list, va_list ap, int number)
     tmp_list = first_list;
     i = va_arg(ap, long long int);
     // printf("%llf\n", i);
-    printf("%i\n", (int)i);
-    printf("%f\n", );
-    printf("%i\n", (int)i);
+    // printf("%i\n", (int)i);
+    // printf("%f\n", );
+    // printf("%i\n", (int)i);
     // while (tmp_list)
     // {
     //     if (tmp_list->n_arg_precision)

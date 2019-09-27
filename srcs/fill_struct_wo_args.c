@@ -12,58 +12,26 @@ int		type_is_real(char c)
 	return (0);
 }
 
-void	args_order(a_list *list)
-{
-	int		counter;
-
-	counter = 1;
-	while (list)
-	{
-		if (list->parameter)
-			counter = list->parameter;
-		if (list->n_arg_width)
-		{
-			if (list->n_arg_width == 1)
-				list->n_arg_width = counter;
-			else if (list->n_arg_width == 2)
-				list->n_arg_width = counter + 1;
-		}
-		if (list->n_arg_precision)
-		{
-			if (list->n_arg_precision == 1)
-				list->n_arg_precision = counter;
-			else if (list->n_arg_precision == 2)
-				list->n_arg_precision = counter + 1;
-		}
-		if (list->n_arg_width)
-			counter++;
-		if (list->n_arg_precision)
-			counter++;
-		if (type_is_real(list->type))
-		{
-			list->n_arg = counter;
-			counter++;
-		}
-		list = list->next;
-	}
-}
-
-a_list		*ft_make_blank_list(unsigned int num_of_list)
+a_list		*make_blank_list(int counter)
 {
 	a_list		*list;
 
 	if (!(list = malloc(sizeof(a_list))))
 		ft_error(0);
-	list->width = -1; // don't know why BUT Check this shit!!!
+	list->parameter = counter;
 	list->n_arg_width = 0;
-	list->precision = -1; // don't know why BUT Check this shit!!!
 	list->n_arg_precision = 0;
+	list->n_arg = 0;
+	list->selector = 0;
 
+	list->width = -1;
+	list->precision = -1;
+	list->arg = NULL;
+
+	list->flags = 0;
 	list->length = 0;
 	list->type = 0;
-	list->arg = NULL;
-	list->n_arg = 0;
-	list->n_of_list = num_of_list;
+
 	list->next = NULL;
 	return (list);
 }
@@ -72,48 +40,44 @@ a_list		*fill_struct_wo_args(char *str)
 {
 	a_list			*first_list;
 	a_list			*tmp_list;
-	unsigned int	num_of_list;
 	char			*tmp_str;
-
+	
 	first_list = NULL;
-	num_of_list = 0;
 	while (*str)
 	{
 		if (*str == '%')
 		{
-			str++; // step after '%'
-			num_of_list++;
+			str++;			
 			if (!first_list)
 			{
-				tmp_list = ft_make_blank_list(num_of_list);
-				first_list = tmp_list;  
+				first_list = make_blank_list(1);
+				tmp_list = first_list;
 			}
 			else
 			{
-				tmp_list->next = ft_make_blank_list(num_of_list);
+				tmp_list->next = make_blank_list(tmp_list->n_arg + 1);
 				tmp_list = tmp_list->next;
 			}
-			tmp_list->type = ft_find_type(str);
+			tmp_list->type = find_type(str);
 			while (*str != tmp_list->type)
 			{
 				tmp_str = str;
 				str += is_it_parameter(str, tmp_list);
-				str += is_it_flag(*str, tmp_list);
-				str += is_it_length(str, tmp_list);
 				str += is_it_width(str, tmp_list);
-				str += is_it_precission(str, tmp_list);
-				if (tmp_str == str) // to exit the cyclсe 
-				{	
+				str += is_it_precision(str, tmp_list);
+				
+				str += is_it_length(str, tmp_list);
+				str += is_it_flag(*str, tmp_list);
+				if (tmp_str == str)
+				{
 					tmp_list->type = *str;
 					break ;
 				}
 			}
-			if (*str)
-				str++;  // one step for step over the type
+			put_n_arg(tmp_list);
 		}
-		else
-			str++;
-	}
-	args_order(first_list);
+		printf("YOYOYOY     %s\n", str);
+		str++;
+	}	
 	return (first_list);
 }

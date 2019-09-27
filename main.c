@@ -1,4 +1,5 @@
 #include "ft_printf.h"
+// #include <stdio.h>
 
 int		main(void)
 {	
@@ -11,18 +12,20 @@ int		main(void)
 	// b = 
 	// printf("%s\n", ft_itoa(b));
 	// printf("%lli", b);
-	// ft_printf("%5$*s %*<");
+	// ft_printf("%2$*3$d");
 	
 	
-	// ft_printf("%i %d &d\n", -1, 3, -3);
+	ft_printf("%2$1*.*9*i %1*.*9*i");
+	// printf("%2$1*.*9*i", 1, 2, 3, 4, 5);
 
-	// printf("%f\n", 1, 2, 3.4);
-	printf("%1$f %1$i\n", 1, 2, 3.4, 5);
-	printf("%1$f %i\n", 1, 2, 3.4, 5);
-	printf("%i %1$f", 1, 2, 3.4, 5);
+	// printf("%2$.4$d\n", 1, 2, 3, 4, 5);
+	
+	// printf("%1$f %1$i\n", 1, 2, 3.4, 5);
+	// printf("%1$f %i\n", 1, 2, 3.4, 5);
+	// printf("%i %1$f", 1, 2, 3.4, 5);
 
 
-	// printf("%*.*% %i", 2, 3, 4);
+	// printf("%*.*% %i", 2, 3, 4);	
 	// printf("%f %1$d", 1, 3.5, 2);
 	// printf("%4	s\n", "1234");
 	// if (a == (float)(a + 0.1))

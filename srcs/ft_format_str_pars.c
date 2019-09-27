@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-char	ft_find_type(char *str)
+char	find_type(char *str)
 {
 	while (*str)
 	{
@@ -39,19 +39,110 @@ char	ft_find_type(char *str)
 
 int		is_it_parameter(char *str, a_list *list)
 {
-	char	*tmp;
+	char	*tmp_str;
 
-	tmp = str;
-	while (*tmp >= '0' && *tmp <= '9')
-		tmp++;
-	if (*tmp == '$' && tmp != str)
-	{
-		list->parameter = ft_atoi(str);
-		tmp++;
-		return ((int)(tmp - str));
-	}
-	else
+	if (*str == '0')
 		return (0);
+	tmp_str = str;
+	while(*tmp_str >= '0' && *tmp_str <= '9')
+		tmp_str++;
+	if (*tmp_str == '$' && tmp_str != str)
+	{
+		list->selector = '\0';
+		list->parameter = ft_atoi(str);
+		return (tmp_str - str + 1);
+	}
+	return (0);
+}
+
+int		is_it_width(char *str, a_list *list)
+{
+	char	*tmp_str;
+
+	if (*str == '0')
+		return (0);
+	if (*str == '*')
+	{
+		if (list->selector == '\0')
+			list->n_arg_width = list->parameter;
+		else if (list->selector == 'w')
+			list->n_arg_width = list->n_arg_width + 1;
+		else if (list->selector == 'p')
+			list->n_arg_width = list->n_arg_precision + 1;
+		list->width = -1;
+		list->selector = 'w';
+		return (1);
+	}
+	tmp_str = str;
+	while (*tmp_str >= '0' && *tmp_str <= '9')
+		tmp_str++;
+	if (tmp_str != str && *tmp_str != '$' && *tmp_str != '.')
+	{
+		list->width = ft_atoi(str);
+		return (tmp_str - str);
+	}
+	return (0);
+}
+
+int		is_it_precision(char *str, a_list *list)
+{
+	char	*tmp_str;
+
+	if (str[0] != '.' || str[1] == '0')
+		return (0);
+	if (str[1] == '*')
+	{
+		if (list->selector == '\0')
+			list->n_arg_precision = list->parameter;
+		else if (list->selector == 'w')
+			list->n_arg_precision = list->n_arg_width + 1;
+		else if (list->selector == 'p')
+			list->n_arg_precision = list->n_arg_precision + 1;
+		list->precision = -1;
+		list->selector = 'p';
+		return (2);
+	}
+	tmp_str = &str[1];
+	while (*tmp_str >= '0' && *tmp_str <= '9')
+		tmp_str++;
+	if (tmp_str != str)
+	{
+		list->precision = ft_atoi(&str[1]);
+		return (tmp_str - str);
+	}
+	return (0);
+}
+
+int		is_it_length(char *str, a_list *list)
+{
+// 'H' == "hh"
+// 'h' == "h"
+// 'L' == "ll"
+// 'l' == "l"
+
+	if (!*str)
+		return (0);
+	else if (str[0] == 'h' && str[1] == 'h')
+	{
+		list->length = 'H';
+		return (2);
+	}
+	else if (str[0] == 'l' && str[1] == 'l')
+	{
+		list->length = 'L';
+		return (2);
+	}
+	else if (str[0] == 'h')
+	{
+		list->length = 'h';
+		return (1);
+	}
+	else if (str[0] == 'l')
+	{
+		list->length = 'l';
+		return (1);
+	}
+	return (0);
 }
 
 int		is_it_flag(char symbol, a_list *list)
@@ -89,93 +180,16 @@ int		is_it_flag(char symbol, a_list *list)
 	return (0);
 }
 
-int		is_it_length(char *str, a_list *list)
+void	put_n_arg(a_list *list)
 {
-// 'H' == "hh"
-// 'h' == "h"
-// 'L' == "ll"
-// 'l' == "l"
-
-	if (!*str)
-		return (0);
-	else if (str[0] == 'h' && str[1] == 'h')
-	{
-		list->length = 'H';
-		return (2);
-	}
-	else if (str[0] == 'l' && str[1] == 'l')
-	{
-		list->length = 'L';
-		return (2);
-	}
-	else if (str[0] == 'h')
-	{
-		list->length = 'h';
-		return (1);
-	}
-	else if (str[0] == 'l')
-	{
-		list->length = 'l';
-		return (1);
-	}
-	return (0);
-}
-
-int		is_it_width(char *str, a_list *list)
-{
-	char	*tmp;
-
-	if (*str == '*')
-	{
-		if (list->n_arg_precision)
-		{
-			list->n_arg_precision = 1;
-			list->n_arg_width = 2;
-		}
-		else
-			list->n_arg_width = 1;
-		list->width = -1;
-		return (1);
-	}
-
-	if (*str <= '0' || *str >= '9')
-		return (0);
-
-	tmp = str;
-	while (*tmp >= '0' && *tmp <= '9')
-		tmp++;
-	if (*tmp == '$')
-		return (0);
-	list->width = ft_atoi(str);
-	list->n_arg_width = 0;
-	return ((int)(tmp - str));
-}
-
-int		is_it_precission(char *str, a_list *list)
-{
-	char	*tmp;
-
-	if (*str != '.')
-		return (0);
-	if (str[1] == '*')
-	{
-		if (list->n_arg_width)
-		{
-			list->n_arg_width = 1;
-			list->n_arg_precision = 2;
-		}
-		else
-			list->n_arg_precision = 1;
-		list->precision = -1;
-		return (2);
-	}
-
-	tmp = &str[1];
-	while(*tmp >= '0' && *tmp <= '9')
-		tmp++;
-	if (tmp == &str[1])
-		return (0);
-	list->precision = ft_atoi(&str[1]);
-	list->n_arg_precision = 0;	
-	return ((int)(tmp - str));
+	if (list->selector == 'w')
+		list->n_arg = list->n_arg_width + 1;
+	else if (list->selector == 'p')
+		list->n_arg = list->n_arg_precision + 1;
+	else
+		list->n_arg = list->parameter;
+	if (list->width != -1)
+		list->n_arg_width = 0;
+	if (list->precision != -1)
+		list->n_arg_precision = 0;
 }

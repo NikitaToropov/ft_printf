@@ -28,11 +28,6 @@
 //Syntax:
 //			%[parameter][flags][width][.precision][length]type
 
-typedef struct		s_list
-{
-	int				parameter;//OK помни что порядок наследуе	тся (см. тетрадь)
-	char			flags;//OK 5 вариантов, хватит 3х битов
-
 // FLAGS:
 	// 	HASH == (char)1;
 	// 	ZERO == (char)2;
@@ -40,31 +35,37 @@ typedef struct		s_list
 	// 	MINUS == (char)8;
 	// 	MINUS == (char)16;
 	// 	APOSTROPHE == (char)32;
+typedef struct		s_list
+{
 
-	int				width;//хватит границ инта
-	int				n_arg_width;//если есть '*', то > 0	
-
-	int				precision;
-	int				n_arg_precision;//если есть '*', то > 0	
-
-	char			length;//OK побитово 4 варианта
-
-	char			type;//OK s,c,p,i/d,x,X,u,o,f,% (12)
-	// i = d => d
-
-	char			*arg;// будем хранить строку
+	int				parameter;
+	int				n_arg_width;
+	int				n_arg_precision;
 	int				n_arg;
-	unsigned int				n_of_list; //ok
-	
-	struct s_list	*next; //OK
+	char			selector;
+
+	int				width;
+	int				precision;
+	char			*arg;
+
+	char			flags;
+	char			length;
+	char			type;
+
+	struct s_list	*next;
 }					a_list;
 
-char		ft_find_type(char *str);
+char		find_type(char *str);
 int			is_it_parameter(char *str, a_list *list);
-int			is_it_flag(char symbol, a_list *list);
-int			is_it_length(char *str, a_list *list);
 int			is_it_width(char *str, a_list *list);
-int			is_it_precission(char *str, a_list *list);
+int			is_it_precision(char *str, a_list *list);
+int			is_it_length(char *str, a_list *list);
+int			is_it_flag(char symbol, a_list *list);
+void		put_n_arg(a_list *list);
+
+
+// int			is_it_flag(char symbol, a_list *list);
+// int			is_it_length(char *str, a_list *list);
 
 
 

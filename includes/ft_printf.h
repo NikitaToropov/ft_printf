@@ -19,15 +19,14 @@
 //				 	c. "n_arg_precision" (int)
 //					d. "n_arg" (int -> signed/unsigned long long, *void, )
 //			3. argument string modifying:
-//				A. length (malloc)
-//				B. precision (malloc, free)
-//				C. width (malloc, free)
-//				D. flags (malloc, free)
+//				A. length
+//				B. precision
+//				C. width
+//				D. flags
 //			4. 
 
 //Syntax:
 //			%[parameter][flags][width][.precision][length]type
-
 // FLAGS:
 	// 	HASH == (char)1;
 	// 	ZERO == (char)2;
@@ -35,14 +34,16 @@
 	// 	MINUS == (char)8;
 	// 	MINUS == (char)16;
 	// 	APOSTROPHE == (char)32;
+
+
+
 typedef struct		s_list
 {
-
+	int				param_field;
 	int				parameter;
 	int				n_arg_width;
 	int				n_arg_precision;
 	int				n_arg;
-	char			selector;
 
 	int				width;
 	int				precision;
@@ -61,8 +62,8 @@ int			is_it_width(char *str, a_list *list);
 int			is_it_precision(char *str, a_list *list);
 int			is_it_length(char *str, a_list *list);
 int			is_it_flag(char symbol, a_list *list);
-void		put_n_arg(a_list *list);
 
+void    ft_check_the_valid(a_list *list);
 
 // int			is_it_flag(char symbol, a_list *list);
 // int			is_it_length(char *str, a_list *list);
@@ -73,7 +74,7 @@ int			ft_atoi(const char *str);
 char		*ft_itoa(long long n);
 char		*ft_uns_itoa_base_wregister(unsigned long long n, int base, int X);
 a_list		*fill_struct_wo_args(char *str);
-void		fill_struct_w_args(a_list *first_arg, va_list ap);
+// void		fill_struct_w_args(a_list *first_arg, va_list ap);
 void		ft_error(int code);
 void		ft_clear_the_struct(a_list **first);
 char		*ft_strchr(const char *s, int c);

@@ -18,11 +18,11 @@ a_list		*make_blank_list(int counter)
 
 	if (!(list = malloc(sizeof(a_list))))
 		ft_error(0);
+	list->param_field = 0;
 	list->parameter = counter;
 	list->n_arg_width = 0;
 	list->n_arg_precision = 0;
 	list->n_arg = 0;
-	list->selector = 0;
 
 	list->width = -1;
 	list->precision = -1;
@@ -62,10 +62,9 @@ a_list		*fill_struct_wo_args(char *str)
 			while (*str != tmp_list->type)
 			{
 				tmp_str = str;
-				str += is_it_parameter(str, tmp_list);
 				str += is_it_width(str, tmp_list);
+				str += is_it_parameter(str, tmp_list);
 				str += is_it_precision(str, tmp_list);
-				
 				str += is_it_length(str, tmp_list);
 				str += is_it_flag(*str, tmp_list);
 				if (tmp_str == str)
@@ -74,9 +73,8 @@ a_list		*fill_struct_wo_args(char *str)
 					break ;
 				}
 			}
-			put_n_arg(tmp_list);
+			tmp_list->n_arg = tmp_list->parameter;
 		}
-		printf("YOYOYOY     %s\n", str);
 		str++;
 	}	
 	return (first_list);

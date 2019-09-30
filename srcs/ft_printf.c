@@ -13,8 +13,7 @@ int			ft_printf(const char *format, ...)
 		printf("\n\"parameter\"         is '%d'\n", first_arg->parameter);
 		printf("\"n_arg_width\"       is '%d'\n", first_arg->n_arg_width);
 		printf("\"n_arg_precision\"   is '%d'\n", first_arg->n_arg_precision);
-		printf("\"n_arg\"             is '%d'\n", first_arg->n_arg);
-		printf("\"selector\"          is '%c'\n\n", first_arg->selector);
+		printf("\"n_arg\"             is '%d'\n\n", first_arg->n_arg);
 
 		printf("\"width\"             is '%d'\n", first_arg->width);
 		printf("\"precision\"         is '%d'\n", first_arg->precision);

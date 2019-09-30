@@ -18,7 +18,7 @@ C_FILES = 	ft_printf.c\
 			ft_format_str_pars.c\
 			ft_atoi.c\
 			fill_struct_wo_args.c\
-			fill_struct_w_args.c\
+			ft_check_the_valid.c\
 
 
 HEADER = $(INCLUDES)/ft_printf.h

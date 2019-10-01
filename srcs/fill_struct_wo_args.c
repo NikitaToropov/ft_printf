@@ -6,8 +6,8 @@ int		type_is_real(char c)
 	c == 'p' || c == 'i' ||
 	c == 'd' || c == 'u' ||
 	c == 'o' || c == 'x' ||
-	c == 'X' || c == 'f' ||
-	c == 'b' || c == 'r')
+	c == 'X' || c == 'f')
+	// c == 'b' || c == 'r')
 		return (1);
 	return (0);
 }
@@ -55,7 +55,7 @@ a_list		*fill_struct_wo_args(char *str)
 			}
 			else
 			{
-				tmp_list->next = make_blank_list(tmp_list->n_arg + 1);
+				tmp_list->next = make_blank_list(tmp_list->parameter);
 				tmp_list = tmp_list->next;
 			}
 			tmp_list->type = find_type(str);
@@ -73,7 +73,11 @@ a_list		*fill_struct_wo_args(char *str)
 					break ;
 				}
 			}
-			tmp_list->n_arg = tmp_list->parameter;
+			if (type_is_real(tmp_list->type))
+			{
+				tmp_list->n_arg = tmp_list->parameter;
+				tmp_list->parameter += 1;
+			}
 		}
 		str++;
 	}	

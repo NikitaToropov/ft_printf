@@ -35,6 +35,13 @@
 	// 	MINUS == (char)16;
 	// 	APOSTROPHE == (char)32;
 
+// LENGTH:
+	// 	l == l;
+	// 	ll == L;
+	// 	h == h;
+	// 	hh == H;
+	// 	L == D;
+
 
 
 typedef struct		s_list
@@ -56,6 +63,8 @@ typedef struct		s_list
 	struct s_list	*next;
 }					a_list;
 
+void		ft_error(int code);
+
 char		find_type(char *str);
 int			is_it_parameter(char *str, a_list *list);
 int			is_it_width(char *str, a_list *list);
@@ -63,24 +72,20 @@ int			is_it_precision(char *str, a_list *list);
 int			is_it_length(char *str, a_list *list);
 int			is_it_flag(char symbol, a_list *list);
 
-void    ft_check_the_valid(a_list *list);
+// void    ft_put_int_arg(a_list *list, unsigned long long arg);
 
-// int			is_it_flag(char symbol, a_list *list);
-// int			is_it_length(char *str, a_list *list);
-
-
+void		fill_struct_w_args(a_list *list, va_list ap);
+void    	ft_check_the_valid(a_list *list);
 
 int			ft_atoi(const char *str);
 char		*ft_itoa(long long n);
 char		*ft_uns_itoa_base_wregister(unsigned long long n, int base, int X);
-a_list		*fill_struct_wo_args(char *str);
-// void		fill_struct_w_args(a_list *first_arg, va_list ap);
-void		ft_error(int code);
 void		ft_clear_the_struct(a_list **first);
 char		*ft_strchr(const char *s, int c);
-a_list		*ft_make_struct(const char *format, ...);
-int			ft_printf(const char *format, ...);
-// char	*ft_strchr(const char *s, int c);
 
+int			ft_printf(const char *format, ...);
+a_list		*ft_make_struct(const char *format, ...);
+a_list		*fill_struct_wo_args(char *str);
+// void		fill_struct_w_args(a_list *first_arg, va_list ap);
 
 #endif

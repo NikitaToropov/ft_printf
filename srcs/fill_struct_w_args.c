@@ -18,16 +18,74 @@ int		find_latest_arg(a_list *list)
 	return (biggest);
 }
 
-put_args_in_the_list(a_list *list, va_list ap)
+void	put_args_in_the_list(a_list *list, va_list ap, int	num_of_arg)
+{
+	unsigned long long	integer_arg;
+	double				floating_arg;
+	long double			long_floating_arg;
+
+	integer_arg = 0;
+	floating_arg = 0;
+	long_floating_arg = 0;
+	while (list)
+	{
+		if (list->n_arg == num_of_arg || list->n_arg_width == num_of_arg ||
+		(list->n_arg == num_of_arg && 
+		(list->type == 'i' || list->type == 'd' || list->type == 'c' ||
+		list->type == 's' || list->type == 'x' || list->type == 'X' ||
+		list->type == 'u' || list->type == 'o' || list->type == 'p')))
+		{
+			integer_arg = va_arg(ap, unsigned long long);
+			break ;
+		}
+		if (list->n_arg == num_of_arg && list->type == 'f' && list->length != 'D')
+		{
+			floating_arg = va_arg(ap, double);
+			break ;
+		}
+		if (list->n_arg == num_of_arg && list->type == 'f' && list->length != 'D')
+		{
+			long_floating_arg = va_arg(ap, long double);
+			break ;
+		}
+		list = list->next;
+	}
+	while (list)
+	{
+		if (list->n_arg_width == num_of_arg)
+		{
+			list->width = (int)integer_arg;
+			list->n_arg_width = 0;
+		}
+		if (list->n_arg_precision == num_of_arg)
+		{
+			list->precision = (int)integer_arg;
+			list->n_arg_precision = 0;
+		}
+		if (list->n_arg == num_of_arg)
+		{
+			list->n_arg = 0;
+			// if (list->type == 'f' && list->length != 'D')
+			// 	ft_put_double_arg(list, floating_arg);
+			// else if (list->type == 'f' && list->length = 'D')
+			// 	ft_put_long_double_arg(list, long_floating_arg);
+			// else
+				// ft_put_int_arg(list, integer_arg);
+		}
+		list = list->next;		
+	}
+}
 
 void	fill_struct_w_args(a_list *list, va_list ap)
 {
-	// a_list		*tmp_list;
+	int		latest_arg;
+	int		counter_arg;
 
-	while (list)
+	latest_arg = find_latest_arg(list);
+	counter_arg = 1;
+	while (counter_arg <= latest_arg)
 	{
-		put_args_in_the_list(lsit, ap);
-		list = list->next;
+		put_args_in_the_list(list, ap, counter_arg);
+		counter_arg++;
 	}
-	put_the_arg(first_list, ap, counter);
 }

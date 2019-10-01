@@ -59,6 +59,7 @@ int		is_it_width(char *str, a_list *list)
 		list->width = -1;
 		if ((str[1] >= '1' && str[1] <= '9') && str[2] == '$')
 		{
+			list->param_field = 1;
 			list->n_arg_width = str[1] - '0';
 			return (3);
 		}
@@ -92,6 +93,7 @@ int		is_it_precision(char *str, a_list *list)
 		list->precision = -1;
 		if ((str[2] >= '1' && str[2] <= '9') && str[3] == '$')
 		{
+			list->param_field = 1;
 			list->n_arg_precision = str[2] - '0';
 			return (4);
 		}

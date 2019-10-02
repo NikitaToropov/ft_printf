@@ -63,7 +63,7 @@ typedef struct		s_list
 	struct s_list	*next;
 }					a_list;
 
-void		ft_error(int code);
+void		ft_errors(int code);
 
 char		find_type(char *str);
 int			is_it_parameter(char *str, a_list *list);

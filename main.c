@@ -10,8 +10,10 @@ int		main(void)
 	// long double	d = 9223372036854775807.0;
 
 	
-	ft_printf("%2$*5f %Lf", 1, 2, 3, 4);
-	// printf("%2$5*i", 1, 2, 3, 4);
+	ft_printf("%i %1$hi %1$hhi %1$li %1$lli %1$Li", 4294967295, 2, 3, 4);
+	//    printf("%i %1$hi %1$hhi %1$li %1$lli %1$Li", 4294967295, 2, 3, 4);
+
+	// printf("%Li", 4294967295);
 
 	// printf("%1$f %1$i\n", 1, 2, 3.4);
 	// printf("%1$i %1$f", 1, 2, 3.4);

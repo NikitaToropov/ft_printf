@@ -72,14 +72,14 @@ int			is_it_precision(char *str, a_list *list);
 int			is_it_length(char *str, a_list *list);
 int			is_it_flag(char symbol, a_list *list);
 
-// void    ft_put_int_arg(a_list *list, unsigned long long arg);
+void   		ft_put_int_arg(a_list *list, unsigned long long arg);
 
 void		fill_struct_w_args(a_list *list, va_list ap);
 void    	ft_check_the_valid(a_list *list);
 
 int			ft_atoi(const char *str);
 char		*ft_itoa(long long n);
-char		*ft_uns_itoa_base_wregister(unsigned long long n, int base, int X);
+char		*ft_itoa_base_uns(unsigned long long n, a_list list);
 void		ft_clear_the_struct(a_list **first);
 char		*ft_strchr(const char *s, int c);
 

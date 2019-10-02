@@ -21,7 +21,7 @@ unsigned int	ft_uns_len(unsigned long long nb, int base)
 	return (ln);
 }
 
-char	*ft_uns_itoa_base_wregister(unsigned long long n, int base, int X)
+char	*ft_itoa_BASE(unsigned long long n, int base, int X)
 {
 	char					*result;
 	unsigned int			len;
@@ -31,7 +31,7 @@ char	*ft_uns_itoa_base_wregister(unsigned long long n, int base, int X)
 		return ("0\0");
 	len = ft_uns_len(n, base);
 	if (!(result = (char*)malloc(sizeof(char) * (len + 1))))
-		return (NULL);
+		ft_errors(0);
 	result[len] = '\0';
 	while (n > 0)
 	{
@@ -42,6 +42,24 @@ char	*ft_uns_itoa_base_wregister(unsigned long long n, int base, int X)
 		n /= (long long)base;
 	}
 	return (result);
+}
+
+
+char	*ft_itoa_base_uns(unsigned long long n, a_list list)
+{
+	if (list->type == 'u')
+	{
+		if (list->length == 'l')
+			list->arg = ft_itoa((long int)arg);
+		else if (list->length == 'L')
+			list->arg = ft_itoa(arg);
+		else if (list->length == 'h')
+			list->arg = ft_itoa((short)arg);
+		else if (list->length == 'H')
+			list->arg = ft_itoa((char)arg);
+		else
+			list->arg = ft_itoa((int)arg);
+	}
 }
 
 // получаем аргументы как:

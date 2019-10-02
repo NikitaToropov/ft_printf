@@ -43,7 +43,7 @@ void	put_args_in_the_list(a_list *list, va_list ap, int	num_of_arg)
 			floating_arg = va_arg(ap, double);
 			break ;
 		}
-		if (list->n_arg == num_of_arg && list->type == 'f' && list->length != 'D')
+		if (list->n_arg == num_of_arg && list->type == 'f' && list->length == 'D')
 		{
 			long_floating_arg = va_arg(ap, long double);
 			break ;
@@ -65,12 +65,12 @@ void	put_args_in_the_list(a_list *list, va_list ap, int	num_of_arg)
 		if (list->n_arg == num_of_arg)
 		{
 			list->n_arg = 0;
+			ft_put_int_arg(list, integer_arg);
 			// if (list->type == 'f' && list->length != 'D')
 			// 	ft_put_double_arg(list, floating_arg);
 			// else if (list->type == 'f' && list->length = 'D')
 			// 	ft_put_long_double_arg(list, long_floating_arg);
 			// else
-				// ft_put_int_arg(list, integer_arg);
 		}
 		list = list->next;		
 	}

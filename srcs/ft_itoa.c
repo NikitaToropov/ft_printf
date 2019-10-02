@@ -25,7 +25,7 @@ char	*ft_itoa(long long n)
 		number = (unsigned long long)(n * -1);
 	len = ft_len(n);
 	if (!(result = (char*)malloc(sizeof(char) * (len + 1))))
-		return (NULL);
+		ft_errors(0);
 	result[len--] = '\0';
 	if (n < 0)
 		result[0] = '-';

@@ -1,12 +1,9 @@
 #include "ft_printf.h"
 
-char	ft_put_letter(unsigned int remainder, int X)
+char	ft_put_letter(unsigned int remainder)
 {
 	char 	l[] = "abcdef";
-	char 	L[] = "ABCDEF";
 
-	if (X)
-		return (L[remainder - 10]);
 	return (l[remainder - 10]);
 
 }
@@ -21,7 +18,7 @@ unsigned int	ft_uns_len(unsigned long long nb, int base)
 	return (ln);
 }
 
-char	*ft_itoa_BASE(unsigned long long n, int base, int X)
+char	*ft_itoa_base(unsigned long long n, int base)
 {
 	char					*result;
 	unsigned int			len;

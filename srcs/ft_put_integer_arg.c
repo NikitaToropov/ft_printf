@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-void	ft_put_int_arg(a_list *list, unsigned long long arg)
+void	ft_put_integer_arg(a_list *list, unsigned long long arg)
 {
 	if (list->type == 'd' || list->type == 'i')
 		parse_simple_integer(list, arg);

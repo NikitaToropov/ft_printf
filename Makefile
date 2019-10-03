@@ -21,6 +21,7 @@ C_FILES = 	ft_printf.c\
 			ft_check_the_valid.c\
 			fill_struct_w_args.c\
 			ft_put_int_arg.c\
+			ft_unicode_char_print.c\
 
 
 HEADER = $(INCLUDES)/ft_printf.h

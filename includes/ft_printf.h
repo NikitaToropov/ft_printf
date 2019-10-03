@@ -88,4 +88,7 @@ a_list		*ft_make_struct(const char *format, ...);
 a_list		*fill_struct_wo_args(char *str);
 // void		fill_struct_w_args(a_list *first_arg, va_list ap);
 
+void	ft_unicode_char_print(int sym);
+
+
 #endif

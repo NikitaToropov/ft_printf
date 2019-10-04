@@ -20,7 +20,7 @@ int			ft_printf(const char *format, ...)
 		printf("\"arg\"               is '%s'\n\n", first_arg->arg);
 		
 		printf("\"flags\"             is '%i'\n", first_arg->flags);
-		printf("\"length\"            is '%d'\n", first_arg->length);
+		printf("\"length\"            is '%c'\n", first_arg->length);
 		printf("\"type\"              is '%c'\n", first_arg->type);
 		printf("------------------------------------\n\n");
 

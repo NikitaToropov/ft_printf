@@ -60,8 +60,6 @@ char	*ft_ITOA_base(unsigned long long n, int base)
 	return (result);
 }
 
-//  think about it
-
 char	*ft_itoa_pointer(unsigned long long n)
 {
 	char					*result;
@@ -69,13 +67,14 @@ char	*ft_itoa_pointer(unsigned long long n)
 	unsigned int			modulo;
 	char 					l[] = "abcdef";
 
-
 	if (n == 0)
-		return ("0\0");
-	len = ft_uns_len(n, 16);
+		return ("0x0\0");
+	len = ft_uns_len(n, 16) + 2;
 	if (!(result = (char*)malloc(sizeof(char) * (len + 1))))
 		ft_errors(0);
 	result[len] = '\0';
+	result[0] = '0';
+	result[1] = 'x';
 	while (n > 0)
 	{
 		if ((modulo = n % 16) > 9)

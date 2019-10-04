@@ -32,7 +32,7 @@ void    ft_check_the_valid(a_list *list)
         list = list->next;
     }
     if (param && ((real_nums && int_nums) || (long_real_nums && int_nums)))
-        ft_error(2);
+        ft_errors(2);
     else if (param && real_nums && long_real_nums)
-        ft_error(3);
+        ft_errors(3);
 }

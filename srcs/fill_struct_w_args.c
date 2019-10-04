@@ -67,11 +67,11 @@ void	put_args_in_the_list(a_list *list, va_list ap, int	num_of_arg)
 			list->precision = (int)integer_arg;
 		if (list->n_arg == num_of_arg)
 		{
-			list->n_arg = 0;
-			ft_put_integer_arg(list, integer_arg);
+			if (is_it_an_integer_type(list->type))
+				ft_put_integer_arg(list, integer_arg);
 			// if (list->type == 'f' && list->length != 'D')
 			// 	ft_put_double_arg(list, floating_arg);
-			// else if (list->type == 'f' && list->length = 'D')
+			// if (list->type == 'f' && list->length = 'D')
 			// 	ft_put_long_double_arg(list, long_floating_arg);
 			// else
 		}

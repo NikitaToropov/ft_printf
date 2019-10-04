@@ -17,7 +17,7 @@ a_list		*make_blank_list(int counter)
 	a_list		*list;
 
 	if (!(list = malloc(sizeof(a_list))))
-		ft_error(0);
+		ft_errors(0);
 	list->param_field = 0;
 	list->parameter = counter;
 	list->n_arg_width = 0;

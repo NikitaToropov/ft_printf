@@ -72,23 +72,33 @@ int			is_it_precision(char *str, a_list *list);
 int			is_it_length(char *str, a_list *list);
 int			is_it_flag(char symbol, a_list *list);
 
-void   		ft_put_int_arg(a_list *list, unsigned long long arg);
-
 void		fill_struct_w_args(a_list *list, va_list ap);
+void   		ft_put_integer_arg(a_list *list, unsigned long long arg);
+
+void	parse_types_di(a_list *list, unsigned long long arg);
+void	parse_types_uo(a_list *list, unsigned long long arg);
+void	parse_types_xXp(a_list *list, unsigned long long arg);
+
+char		*ft_itoa(long long n);
+char		*ft_itoa_base(unsigned long long n, int base);
+char		*ft_ITOA_base(unsigned long long n, int base);
+char		*ft_itoa_pointer(unsigned long long n);
+
+char		*ft_utf_8_coder(int sym);
+
+
+
 void    	ft_check_the_valid(a_list *list);
 
 int			ft_atoi(const char *str);
-char		*ft_itoa(long long n);
-char		*ft_itoa_base_uns(unsigned long long n, a_list list);
+// char		*ft_itoa_base_uns(unsigned long long n, a_list list);
 void		ft_clear_the_struct(a_list **first);
 char		*ft_strchr(const char *s, int c);
 
 int			ft_printf(const char *format, ...);
 a_list		*ft_make_struct(const char *format, ...);
 a_list		*fill_struct_wo_args(char *str);
-// void		fill_struct_w_args(a_list *first_arg, va_list ap);
 
 void	ft_unicode_char_print(int sym);
-
 
 #endif

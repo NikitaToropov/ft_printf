@@ -75,9 +75,9 @@ int			is_it_flag(char symbol, a_list *list);
 void		fill_struct_w_args(a_list *list, va_list ap);
 void   		ft_put_integer_arg(a_list *list, unsigned long long arg);
 
-void	parse_types_di(a_list *list, unsigned long long arg);
-void	parse_types_uo(a_list *list, unsigned long long arg);
-void	parse_types_xXp(a_list *list, unsigned long long arg);
+void		parse_types_di(a_list *list, unsigned long long arg);
+void		parse_types_uo(a_list *list, unsigned long long arg);
+void		parse_types_xXp(a_list *list, unsigned long long arg);
 
 char		*ft_itoa(long long n);
 char		*ft_itoa_base(unsigned long long n, int base);

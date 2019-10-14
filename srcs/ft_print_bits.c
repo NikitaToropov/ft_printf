@@ -1,30 +1,36 @@
 #include "ft_printf.h"
 
-void	ft_print_bits(void *c, unsigned int len)
+char	*ft_print_bits(void *c, unsigned int len)
 {
 	unsigned char	scaner;
-	unsigned char	*m;
+	unsigned char	*byte;
+	char			*str;
+	unsigned int	pos;
+
 	unsigned int	a = 1;
 
-	printf("%u\n", len);
-	m = (unsigned char*)c + len - 1;
-	while (m >= (unsigned char*)c)
+	str = (char*)malloc(sizeof(char) * ((len / 4 - 1) + len + 1));
+	byte = (unsigned char*)c + len - 1;
+	pos = 0;
+	while (byte >= (unsigned char*)c)
 	{
 		scaner = 128;
 		while (scaner)
 		{
-			if (*m & scaner)
-				write(1, "1", 1);
+			if (*byte & scaner)
+				str[pos] = '1';
 			else
-				write(1, "0", 1);
-			// if (a == || a == || a ==)
-			if (scaner == 16)
-				write(1, " ", 1);
-			// if (a == || a == || a ==)
+				str[pos] = '0';
+			pos += 1;
+			if (scaner == 16 || (scaner == 1 && byte != (unsigned char*)c))
+			{
+				str[pos] = ' ';
+				pos += 1;
+			}
 			scaner /= 2;
 		}
-		if (m != (unsigned char*)c)
-			write(1, " ", 1);
-		m--;
+		byte--;
 	}	
+	str[pos] = '\0';
+	printf("%s", str);
 }

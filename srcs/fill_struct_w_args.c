@@ -29,6 +29,7 @@ int		find_latest_arg(a_list *list)
 
 void	put_args_in_the_list(a_list *list, va_list ap, int	num_of_arg)
 {
+	a_list				*tmp_list;
 	unsigned long long	integer_arg;
 	double				floating_arg;
 	long double			long_floating_arg;
@@ -59,7 +60,8 @@ void	put_args_in_the_list(a_list *list, va_list ap, int	num_of_arg)
 		}
 		list = list->next;
 	}
-	while (list)
+	
+	while (tmp_list) 
 	{
 		if (list->n_arg_width == num_of_arg)
 			list->width = (int)integer_arg;
@@ -71,9 +73,8 @@ void	put_args_in_the_list(a_list *list, va_list ap, int	num_of_arg)
 				ft_put_integer_arg(list, integer_arg);
 			// if (list->type == 'f' && list->length != 'D')
 			// 	ft_put_double_arg(list, floating_arg);
-			// if (list->type == 'f' && list->length = 'D')
-			// 	ft_put_long_double_arg(list, long_floating_arg);
-			// else
+			if (list->type == 'f' && list->length = 'D')
+				ft_put_long_double_arg(list, long_floating_arg);
 		}
 		list = list->next;		
 	}

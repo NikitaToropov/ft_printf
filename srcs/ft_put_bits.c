@@ -1,13 +1,11 @@
 #include "ft_printf.h"
 
-char	*ft_print_bits(void *c, unsigned int len)
+char	*ft_put_bits(void *c, unsigned int len)
 {
 	unsigned char	scaner;
 	unsigned char	*byte;
 	char			*str;
 	unsigned int	pos;
-
-	unsigned int	a = 1;
 
 	str = (char*)malloc(sizeof(char) * ((len / 4 - 1) + len + 1));
 	byte = (unsigned char*)c + len - 1;
@@ -32,5 +30,6 @@ char	*ft_print_bits(void *c, unsigned int len)
 		byte--;
 	}	
 	str[pos] = '\0';
-	printf("%s", str);
+	// printf("%s", str);
+	return (str);
 }

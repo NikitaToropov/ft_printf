@@ -9,24 +9,9 @@
 # include <locale.h> // dont rmmbr
 # include <stdio.h> // dont rmmbr
 
-
-//Processing order:
-//			1. format string parsing "ft_make_struct"
-//			2. va_arg parsing depending on:
-//				A. smallest arguments (all struct) in:
-//					a. "parameter" (int)
-//					b. "n_arg_width" (int)	
-//				 	c. "n_arg_precision" (int)
-//					d. "n_arg" (int -> signed/unsigned long long, *void, )
-//			3. argument string modifying:
-//				A. length
-//				B. precision
-//				C. width
-//				D. flags
-//			4. 
-
 //Syntax:
 //			%[parameter][flags][width][.precision][length]type
+
 // FLAGS:
 	// 	HASH == (char)1;
 	// 	ZERO == (char)2;
@@ -42,9 +27,7 @@
 	// 	hh == H;
 	// 	L == D;
 
-
-
-typedef struct		s_list
+typedef struct		t_list
 {
 	int				param_field;
 	int				parameter;
@@ -60,45 +43,40 @@ typedef struct		s_list
 	char			length;
 	char			type;
 
-	struct s_list	*next;
-}					a_list;
+	struct t_list	*next;
+}					s_args;
 
 void		ft_errors(int code);
 
-char		find_type(char *str);
-int			is_it_parameter(char *str, a_list *list);
-int			is_it_width(char *str, a_list *list);
-int			is_it_precision(char *str, a_list *list);
-int			is_it_length(char *str, a_list *list);
-int			is_it_flag(char symbol, a_list *list);
-
-void		fill_struct_w_args(a_list *list, va_list ap);
-void   		ft_put_integer_arg(a_list *list, unsigned long long arg);
-
-void		parse_types_di(a_list *list, unsigned long long arg);
-void		parse_types_uo(a_list *list, unsigned long long arg);
-void		parse_types_xXp(a_list *list, unsigned long long arg);
-
 char		*ft_itoa(long long n);
 char		*ft_itoa_base(unsigned long long n, int base);
-char		*ft_ITOA_base(unsigned long long n, int base);
+char		*ft_itoa_base_uppercase(unsigned long long n, int base);
 char		*ft_itoa_pointer(unsigned long long n);
 
-char		*ft_utf_8_coder(int sym);
-
-
-
-void    	ft_check_the_valid(a_list *list);
-
 int			ft_atoi(const char *str);
-// char		*ft_itoa_base_uns(unsigned long long n, a_list list);
-void		ft_clear_the_struct(a_list **first);
+char		*ft_utf_8_coder(int sym);
+char		*ft_put_bits(void *c, unsigned int len);
+
+
+
+// void    	ft_check_the_valid(s_args *list);
+
+void		ft_clear_the_struct(s_args **first);
 char		*ft_strchr(const char *s, int c);
 
-int			ft_printf(const char *format, ...);
-a_list		*ft_make_struct(const char *format, ...);
-a_list		*fill_struct_wo_args(char *str);
+void		ft_put_floating_arg(s_args *list, long double argument);
+void		ft_put_integer_arg(s_args *list, unsigned long long arg);
+void		ft_args_parse(s_args *list, va_list ap);
 
-void	ft_unicode_char_print(int sym);
+
+int			ft_find_parameter(char *str, s_args *list);
+int			ft_find_width(char *str, s_args *list);
+int			ft_find_precision(char *str, s_args *list);
+int			ft_find_length(char *str, s_args *list);
+int			ft_find_flag(char symbol, s_args *list);
+s_args		*ft_format_string_parse(char *str);
+
+s_args		*ft_make_struct(const char *format, ...);
+int			ft_printf(const char *format, ...);
 
 #endif

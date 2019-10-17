@@ -9,18 +9,20 @@ INCLUDES = ./includes
 
 # files
 C_FILES = 	ft_printf.c\
+			ft_make_struct.c\
+			ft_format_string_parse.c\
+			fields_parsers.c\
+			ft_args_parse.c\
+			ft_put_bits.c\
+			ft_put_integer_arg.c\
+			ft_put_floating_arg.c\
 			ft_errors.c\
 			ft_strchr.c\
-			ft_make_struct.c\
 			ft_clear_the_struct.c\
 			ft_itoa_base.c\
 			ft_itoa.c\
-			ft_format_str_pars.c\
 			ft_atoi.c\
-			fill_struct_wo_args.c\
 			ft_check_the_valid.c\
-			fill_struct_w_args.c\
-			ft_put_integer_arg.c\
 			ft_utf_8_coder.c\
 
 

@@ -1,8 +1,8 @@
 #include "ft_printf.h"
 
-void	ft_clear_the_struct(a_list **first)
+void	ft_clear_the_struct(s_args **first)
 {
-	a_list		*tmp;
+	s_args		*tmp;
 
 	while (*first)
 	{

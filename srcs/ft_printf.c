@@ -3,7 +3,7 @@
 
 int			ft_printf(const char *format, ...)
 {
-	a_list		*first_arg;
+	s_args		*first_arg;
 	int			num_of_chars;
 
 	num_of_chars = 0;

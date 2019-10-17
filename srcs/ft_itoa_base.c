@@ -35,7 +35,7 @@ char	*ft_itoa_base(unsigned long long n, int base)
 	return (result);
 }
 
-char	*ft_ITOA_base(unsigned long long n, int base)
+char	*ft_itoa_base_uppercase(unsigned long long n, int base)
 {
 	char					*result;
 	unsigned int			len;

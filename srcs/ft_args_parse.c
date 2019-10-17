@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-int		is_it_an_integer_type(char type)
+int		ft_check_integer_type(char type)
 {
 	if (type == 'c' || type == 's' || type == 'p' ||
 	type == 'd' || type == 'i' || type == 'o' ||
@@ -9,7 +9,7 @@ int		is_it_an_integer_type(char type)
 	return (0);
 }
 
-int		find_latest_arg(a_list *list)
+int		ft_find_ltst_arg(s_args *list)
 {
 	int		biggest;
 
@@ -27,12 +27,12 @@ int		find_latest_arg(a_list *list)
 	return (biggest);
 }
 
-void	put_args_in_the_list(a_list *list, va_list ap, int	num_of_arg)
+void	put_args_in_the_list(s_args *list, va_list ap, int	num_of_arg)
 {
-	a_list				*tmp_list;
-	unsigned long long	integer_arg;
-	double				floating_arg;
-	long double			long_floating_arg;
+	// s_args					*tmp_list;
+	unsigned long long		integer_arg;
+	double					floating_arg;
+	long double				long_floating_arg;
 
 	integer_arg = 0;
 	floating_arg = 0;
@@ -41,27 +41,32 @@ void	put_args_in_the_list(a_list *list, va_list ap, int	num_of_arg)
 	{
 		if (list->n_arg_width == num_of_arg ||
 		list->n_arg_precision == num_of_arg ||
-		(list->n_arg == num_of_arg && is_it_an_integer_type(list->type)))
+		(list->n_arg == num_of_arg && ft_check_integer_type(list->type)))
 		{
 			integer_arg = va_arg(ap, unsigned long long);
+			floating_arg = (double)integer_arg;
+			long_floating_arg = (long double)integer_arg;
 			break ;
 		}
 		if (list->n_arg == num_of_arg && list->type == 'f' &&
 		list->length != 'D')
 		{
 			floating_arg = va_arg(ap, double);
+			integer_arg = (unsigned long long)floating_arg;
+			long_floating_arg = (long double)floating_arg;
 			break ;
 		}
 		if (list->n_arg == num_of_arg && list->type == 'f' &&
 		list->length == 'D')
 		{
 			long_floating_arg = va_arg(ap, long double);
+			integer_arg = (unsigned long long)long_floating_arg;
+			floating_arg = (double)long_floating_arg;
 			break ;
 		}
 		list = list->next;
 	}
-	
-	while (tmp_list) 
+	while (list) 
 	{
 		if (list->n_arg_width == num_of_arg)
 			list->width = (int)integer_arg;
@@ -69,25 +74,23 @@ void	put_args_in_the_list(a_list *list, va_list ap, int	num_of_arg)
 			list->precision = (int)integer_arg;
 		if (list->n_arg == num_of_arg)
 		{
-			if (is_it_an_integer_type(list->type))
+			if (ft_check_integer_type(list->type))
 				ft_put_integer_arg(list, integer_arg);
-			// if (list->type == 'f' && list->length != 'D')
-			// 	ft_put_double_arg(list, floating_arg);
-			if (list->type == 'f' && list->length = 'D')
-				ft_put_long_double_arg(list, long_floating_arg);
+			// if (list->type == 'f')
+			// 	ft_put_floating_arg(list, long_floating_arg);
 		}
-		list = list->next;		
+		list = list->next;
 	}
 }
 
-void	fill_struct_w_args(a_list *list, va_list ap)
+void	ft_args_parse(s_args *list, va_list ap)
 {
-	int		latest_arg;
+	int		num_of_ltst_arg;
 	int		counter_arg;
 
-	latest_arg = find_latest_arg(list);
+	num_of_ltst_arg = ft_find_ltst_arg(list);
 	counter_arg = 1;
-	while (counter_arg <= latest_arg)
+	while (counter_arg <= num_of_ltst_arg)
 	{
 		put_args_in_the_list(list, ap, counter_arg);
 		counter_arg++;

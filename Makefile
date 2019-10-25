@@ -20,7 +20,6 @@ C_FILES = 	ft_printf.c\
 			ft_itoa_base.c\
 			ft_itoa.c\
 			ft_atoi.c\
-			ft_check_the_valid.c\
 			ft_utf_8_coder.c\
 
 

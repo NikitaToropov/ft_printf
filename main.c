@@ -11,8 +11,9 @@ int		main(void)
 
 	long double		f = -1234567890123456789012.12567L;		//dnt frgt
 
+	ft_printf("%Lf", f);
 
-	ft_printf("%Lf %3$c %2$i", f, 1, '{');
+	// ft_printf("%Lf %3$c %2$i", f, 1, '{');
 	// for_arg("rtryr", 123.123L, 234.234L, 345.345L, 456.456L);
 	return (0);
 }

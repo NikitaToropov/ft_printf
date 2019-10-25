@@ -9,6 +9,8 @@
 # include <locale.h> // dont rmmbr
 # include <stdio.h> // dont rmmbr
 
+#define ULL "unsigned long long int"
+
 //Syntax:
 //			%[parameter][flags][width][.precision][length]type
 
@@ -46,7 +48,7 @@ typedef struct		t_list
 	struct t_list	*next;
 }					s_args;
 
-void		ft_errors(int code);
+void		ft_errors(void);
 
 char		*ft_itoa(long long n);
 char		*ft_itoa_base(unsigned long long n, int base);

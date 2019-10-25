@@ -42,7 +42,6 @@ char	*ft_str_frm_float(int int_len, int frac_len, int n_dig, long double ld)
 		counter--;
 
 	}
-// printf("yoyoyoyyoy %s\n", str);
 	counter = int_len + 1;
 	tmp_ld = ld;
 	if (tmp_ld < 0)
@@ -103,8 +102,6 @@ char	*ft_put_long_double_arg(s_args *list, long double argument)
 void	ft_put_floating_arg(s_args *list, long double argument)
 {
 	double		double_argument;
-
-	// printf("yoyoyoyyoy     %Lf\n\n", argument);
 
 	double_argument = (double)argument;
 	if (list->flags & 64 && list->length == 'F')

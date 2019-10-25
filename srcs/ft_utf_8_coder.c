@@ -4,19 +4,17 @@ char	*ft_utf_8_coder(int sym)
 {
 	char		*str;
 	
-	if (sym > 1114111)
-		ft_errors(4);
 	if (sym >= 0 && sym <= 127) //00000000-0000007F
 	{
 		if (!(str = (char*)malloc(sizeof(char) * 2)))
-			ft_errors(0);
+			ft_errors();
 		str[0] = (char)sym;
 		str[1] = '\0';
 	}
 	else if (sym > 127 && sym <= 2047) //00000080-000007FF
 	{
 		if (!(str = (char*)malloc(sizeof(char) * 3)))
-			ft_errors(0);
+			ft_errors();
 		str[0] = (unsigned char)(((sym >> 6) & 31) | 192);
 		str[1] = (unsigned char)((sym & 63) | 128);
 		str[2] = '\0';
@@ -24,7 +22,7 @@ char	*ft_utf_8_coder(int sym)
 	else if (sym > 2047 && sym <= 65535) //00000800-0000FFFF
 	{
 		if (!(str = (char*)malloc(sizeof(char) * 4)))
-			ft_errors(0);
+			ft_errors();
 		str[0] = (unsigned char)(((sym >> 12) & 15) | 224);
 		str[1] = (unsigned char)(((sym >> 6) & 63) | 128);		
 		str[2] = (unsigned char)((sym & 63) | 128);
@@ -33,7 +31,7 @@ char	*ft_utf_8_coder(int sym)
 	else //00010000-0010FFFF
 	{
 		if (!(str = (char*)malloc(sizeof(char) * 5)))
-			ft_errors(0);
+			ft_errors();
 		str[0] = (unsigned char)(((sym >> 18) & 7) | 240);
 		str[1] = (unsigned char)(((sym >> 12) & 63) | 128);
 		str[2] = (unsigned char)(((sym >> 6) & 63) | 128);

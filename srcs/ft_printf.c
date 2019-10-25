@@ -52,7 +52,7 @@ char	ft_selector_of_types(s_args *list, int counter_arg)
 	return ('e');
 }
 
-void	ft_put_the_arg_in_lists(s_args *list, int num, unsigned long long int integer_arg, long double floating_arg)
+void	ft_put_the_arg_in_lists(s_args *list, int num, unsigned long long integer_arg, long double floating_arg)
 {
 	while (list) 
 	{
@@ -97,9 +97,6 @@ int			ft_printf(const char *format, ...)
 				ft_put_the_arg_in_lists(first_list, counter_arg, 0, (long double)va_arg(ap, double));
 			else if (type_selector == 'F')
 				ft_put_the_arg_in_lists(first_list, counter_arg, 0, va_arg(ap, long double));
-			else
-				ft_errors(0);
-		
 			counter_arg++;
 		}
 		va_end(ap);

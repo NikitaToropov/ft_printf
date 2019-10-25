@@ -34,7 +34,7 @@ OBJS = $(addprefix $(DIR_O)/,$(C_FILES:.c=.o))
 
 # flags
 CC = gcc
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g
 
 .PHONY: all clean fclean re
 

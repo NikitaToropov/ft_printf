@@ -7,6 +7,7 @@ int			ft_printf(const char *format, ...)
 	int			num_of_chars;
 
 	num_of_chars = 0;
+	
 	first_arg = ft_make_struct(format);
 	while (first_arg)
 	{

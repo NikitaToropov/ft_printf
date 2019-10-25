@@ -1,12 +1,12 @@
 #include "ft_printf.h"
 
-void	ft_make_str(int int_len, int frac_len, long double ld)
+void	ft_str_frm_float(int int_len, int frac_len, int n_dig, long double ld)
 {
 	long double			tmp_ld;
-	unsigned int		sim;
+	int					sim;
 	char				*str;
-	unsigned int		len;
-	unsigned int		counter;
+	int					len;
+	int					counter;
 
 	tmp_ld = ld;
 	if (ld < 0)
@@ -14,10 +14,11 @@ void	ft_make_str(int int_len, int frac_len, long double ld)
 		tmp_ld *= -1;
 		int_len++;
 	}
+
 	if (!frac_len)
-		len = (unsigned long long int)int_len;
+		len = int_len;
 	else
-		len = (unsigned long long int)(frac_len + int_len + 1);
+		len = frac_len + int_len + 1;
 	str = malloc(sizeof(char) * (len + 1));
 	str[int_len] = '.';
 	str[len] = '\0';
@@ -30,8 +31,13 @@ void	ft_make_str(int int_len, int frac_len, long double ld)
 	counter = int_len - 1;
 	while (tmp_ld >= 1 && counter >= 0)
 	{
-		sim = (unsigned long long int)tmp_ld % 10;
-		str[counter] = sim + '0';
+		if (counter > n_dig)
+			str[counter] = '0';
+		else
+		{
+			sim = (unsigned long long int)tmp_ld % 10;
+			str[counter] = sim + '0';
+		}
 		tmp_ld /= 10;
 		counter--;
 	}
@@ -44,7 +50,6 @@ void	ft_make_str(int int_len, int frac_len, long double ld)
 		tmp_ld *= 10;
 		sim = (unsigned long long int)tmp_ld % 10;
 		str[counter] = sim + '0';
-
 		counter++;
 	}
 	printf("%s\n", str);
@@ -52,14 +57,14 @@ void	ft_make_str(int int_len, int frac_len, long double ld)
 
 void	ft_put_long_double_arg(a_list *list, long double argument)
 {
-	int	integer_len;
-	int	fractional_len;
-	int	const_dig;
+	int				integer_len;
+	int				fractional_len;
+	int				const_dig;
 	long double 	tmp;
 
 	if (argument == 0)
 	{
-		list->arg = "0\0";
+		list->arg = "0";
 		return ;
 	}
 
@@ -93,5 +98,5 @@ void	ft_put_long_double_arg(a_list *list, long double argument)
 		else
 			fractional_len = const_dig - integer_len;
 	}
-	list->arg = ft_make_str(integer_len, fractional_len, argument);
+	list->arg = ft_str_frm_float(integer_len, fractional_len, argument);
 }

@@ -8,7 +8,6 @@ s_args		*ft_make_struct(const char *format, ...)
 	if (!(ft_strchr(format, '%')))
 		return (NULL);
 	first_list = ft_format_string_parse((char*)format);
-	// ft_check_the_valid(first_list);
 	if (first_list)
 	{
 		va_start(ap, format);

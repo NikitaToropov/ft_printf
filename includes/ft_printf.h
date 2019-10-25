@@ -66,7 +66,6 @@ char		*ft_strchr(const char *s, int c);
 
 void		ft_put_floating_arg(s_args *list, long double argument);
 void		ft_put_integer_arg(s_args *list, unsigned long long arg);
-void		ft_args_parse(s_args *list, va_list ap);
 
 
 int			ft_find_parameter(char *str, s_args *list);
@@ -76,7 +75,7 @@ int			ft_find_length(char *str, s_args *list);
 int			ft_find_flag(char symbol, s_args *list);
 s_args		*ft_format_string_parse(char *str);
 
-s_args		*ft_make_struct(const char *format, ...);
+// s_args		*ft_make_struct(const char *format, ...);
 int			ft_printf(const char *format, ...);
 
 #endif

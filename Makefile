@@ -9,10 +9,8 @@ INCLUDES = ./includes
 
 # files
 C_FILES = 	ft_printf.c\
-			ft_make_struct.c\
 			ft_format_string_parse.c\
 			fields_parsers.c\
-			ft_args_parse.c\
 			ft_put_bits.c\
 			ft_put_integer_arg.c\
 			ft_put_floating_arg.c\

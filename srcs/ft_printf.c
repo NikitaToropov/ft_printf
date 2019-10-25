@@ -1,4 +1,3 @@
-
 #include "ft_printf.h"
 
 int		ft_check_integer_type(char type)
@@ -28,20 +27,57 @@ int		ft_find_ltst_arg(s_args *list)
 	return (biggest);
 }
 
-// ft_type_of_arg()
-// {
+char	ft_selector_of_types(s_args *list, int counter_arg)
+{
+	while (list)
+	{
+		if (list->n_arg_width == counter_arg ||
+		list->n_arg_precision == counter_arg ||
+		(list->n_arg == counter_arg && ft_check_integer_type(list->type)))
+		{
+			return ('i');
+		}
+		if (list->n_arg == counter_arg && list->type == 'f' &&
+		list->length != 'F')
+		{
+			return ('f');
+		}
+		if (list->n_arg == counter_arg && list->type == 'f' &&
+		list->length == 'F')
+		{
+			return ('F');
+		}
+		list = list->next;
+	}
+	return ('e');
+}
 
-// }
+void	ft_put_the_arg_in_lists(s_args *list, int num, unsigned long long int integer_arg, long double floating_arg)
+{
+	while (list) 
+	{
+		if (list->n_arg_width == num)
+			list->width = (int)integer_arg;
+		if (list->n_arg_precision == num)
+			list->precision = (int)integer_arg;
+		if (list->n_arg == num)
+		{
+			if (ft_check_integer_type(list->type))
+				ft_put_integer_arg(list, integer_arg);
+			if (list->type == 'f')
+				ft_put_floating_arg(list, floating_arg);
+		}
+		list = list->next;
+	}
+}
 
 int			ft_printf(const char *format, ...)
 {
 	va_list					ap;
 	s_args					*first_list;
-	s_args					*tmp_list;
+	char					type_selector;
 	int						num_of_ltst_arg;
 	int						counter_arg;
-	unsigned long long		integer_arg;
-	long double				long_floating_arg;
 
 
 	first_list = NULL;
@@ -54,45 +90,16 @@ int			ft_printf(const char *format, ...)
 		counter_arg = 1;
 		while (counter_arg <= num_of_ltst_arg)
 		{
-			tmp_list = first_list;
-			while (tmp_list)
-			{
-				if (tmp_list->n_arg_width == counter_arg ||
-				tmp_list->n_arg_precision == counter_arg ||
-				(tmp_list->n_arg == counter_arg && ft_check_integer_type(tmp_list->type)))
-				{
-					integer_arg = va_arg(ap, unsigned long long);
-					break ;
-				}
-				if (tmp_list->n_arg == counter_arg && tmp_list->type == 'f' &&
-				tmp_list->length != 'F')
-				{
-					long_floating_arg = (long double)va_arg(ap, double);
-					break ;
-				}
-				if (tmp_list->n_arg == counter_arg && tmp_list->type == 'f' &&
-				tmp_list->length == 'F')
-				{
-					long_floating_arg = (long double)va_arg(ap, long double);
-					break ;
-				}
-				tmp_list = tmp_list->next;
-			}
-			while (tmp_list) 
-			{
-				if (tmp_list->n_arg_width == counter_arg)
-					tmp_list->width = (int)integer_arg;
-				if (tmp_list->n_arg_precision == counter_arg)
-					tmp_list->precision = (int)integer_arg;
-				if (tmp_list->n_arg == counter_arg)
-				{
-					if (ft_check_integer_type(tmp_list->type))
-						ft_put_integer_arg(tmp_list, integer_arg);
-					if (tmp_list->type == 'f')
-						ft_put_floating_arg(tmp_list, long_floating_arg);
-				}
-				tmp_list = tmp_list->next;
-			}
+			type_selector = ft_selector_of_types(first_list, counter_arg);
+			if (type_selector == 'i')
+				ft_put_the_arg_in_lists(first_list, counter_arg, va_arg(ap, unsigned long long), 0);
+			else if (type_selector == 'f')
+				ft_put_the_arg_in_lists(first_list, counter_arg, 0, (long double)va_arg(ap, double));
+			else if (type_selector == 'F')
+				ft_put_the_arg_in_lists(first_list, counter_arg, 0, va_arg(ap, long double));
+			else
+				ft_errors(0);
+		
 			counter_arg++;
 		}
 		va_end(ap);

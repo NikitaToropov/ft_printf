@@ -9,7 +9,7 @@ int		main(void)
 {	
 	// double		f = 123.123;
 
-	long double		f = -1234567890123456789012.12567l;		//dnt frgt
+	long double		f = -1234567890123456789012.12567L;		//dnt frgt
 
 
 	ft_printf("%Lf %3$c %2$i", f, 1, '{');

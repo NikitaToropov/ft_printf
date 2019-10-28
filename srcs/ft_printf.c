@@ -57,10 +57,7 @@ void	ft_put_the_arg_in_lists(s_args *list, int num, unsigned long long integer_a
 	while (list) // add
 	{
 		if (list->n_arg_width == num && list->width == -1)
-		{
-			printf("YOYOYOYOYO !!our n_arg_width == %i\n But value us %lli", num, integer_arg);
 			list->width = (int)integer_arg;
-		}
 		if (list->n_arg_precision == num && list->precision == -1)
 			list->precision = (int)integer_arg;
 		if (list->n_arg == num)

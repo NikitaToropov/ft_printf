@@ -99,6 +99,7 @@ int			ft_printf(const char *format, ...)
 				ft_put_the_arg_in_lists(first_list, counter_arg, 0, va_arg(ap, long double));
 			else
 				va_arg(ap, unsigned long long);
+				// or error think about it
 			counter_arg++;
 		}
 		va_end(ap);

@@ -56,48 +56,85 @@ char	*ft_str_frm_float(int int_len, int frac_len, int n_dig, long double ld)
 	return (str);
 }
 
+// char	*ft_put_long_double_arg(s_args *list, long double argument)
+// {
+// 	int				integer_len;
+// 	int				fractional_len;
+// 	int				const_dig;
+// 	long double 	tmp;
+
+// 	if (argument == 0)
+// 		return ("0\0");
+
+// 	if (list->length == 'D')
+// 		const_dig = 18;
+// 	else
+// 		const_dig = 15;
+	
+// 	tmp = argument;
+// 	integer_len = 1;
+// 	if (tmp < 0)
+// 		tmp *= -1;
+// 	while ((tmp /= 10) >= 1)
+// 		integer_len++;
+// 	fractional_len = 0;
+// 	tmp = argument;
+// 	if (tmp < 0)
+// 		tmp *= -1;
+// 	fractional_len = 0;
+// 	if (integer_len == 1 && tmp < 1)
+// 	{
+// 		fractional_len = 1;
+// 		while ((tmp *= 10) < 1)
+// 			fractional_len++;
+// 		fractional_len += const_dig;
+// 	}
+// 	else
+// 	{
+// 		if (integer_len >= const_dig)
+// 			fractional_len = 0;
+// 		else
+// 			fractional_len = const_dig - integer_len;
+// 	}
+// 	return (ft_str_frm_float(integer_len, fractional_len, const_dig, argument));
+// }
 char	*ft_put_long_double_arg(s_args *list, long double argument)
 {
-	int				integer_len;
-	int				fractional_len;
-	int				const_dig;
+	int				int_len;
+	int				frac_len;
 	long double 	tmp;
+	int				sign_dig; //significant digits
 
-	if (argument == 0)
-		return ("0\0");
+
+	if (!argument)
+		return ("0");
+	if (argument != argument)
+		return ("nan");
+	if (argument == (argument - 1) && argument > 0)
+		return ("inf");
+	if (argument == (argument - 1) && argument < 0)
+		return ("-inf");
+
+	tmp = argument;
+	if (tmp < 0)
+		tmp *= -1;
+	int_len = 1;
+	while ((tmp /= 10) >= 1)
+		int_len++;
 
 	if (list->length == 'D')
-		const_dig = 18;
+		sign_dig = LDBL_DIG;
 	else
-		const_dig = 15;
+		sign_dig = DBL_DIG;
+
+	if (int_len >= sign_dig)
+		frac_len = 0;
+	else
+		frac_len = int_len - sign_dig;
 	
-	tmp = argument;
-	integer_len = 1;
-	if (tmp < 0)
-		tmp *= -1;
-	while ((tmp /= 10) >= 1)
-		integer_len++;
-	fractional_len = 0;
-	tmp = argument;
-	if (tmp < 0)
-		tmp *= -1;
-	fractional_len = 0;
-	if (integer_len == 1 && tmp < 1)
-	{
-		fractional_len = 1;
-		while ((tmp *= 10) < 1)
-			fractional_len++;
-		fractional_len += const_dig;
-	}
-	else
-	{
-		if (integer_len >= const_dig)
-			fractional_len = 0;
-		else
-			fractional_len = const_dig - integer_len;
-	}
-	return (ft_str_frm_float(integer_len, fractional_len, const_dig, argument));
+	return ("LOL");
 }
+
 
 void	ft_put_floating_arg(s_args *list, long double argument)
 {

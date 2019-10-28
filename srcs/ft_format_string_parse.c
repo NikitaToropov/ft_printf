@@ -26,12 +26,6 @@ char	ft_find_type(char *str)
 			return ('f');
 		else if (*str == '%')
 			return ('%');
-		// else if (*str == 'b')
-		// 	return ('b');
-		// else if (*str == 'r')
-		// 	return ('r');
-		// else if (*str == 'k')
-		// 	return ('k');
 		str++;
 	}
 	return ('\0');
@@ -44,7 +38,6 @@ int		ft_check_the_type(char c)
 	c == 'd' || c == 'u' ||
 	c == 'o' || c == 'x' ||
 	c == 'X' || c == 'f')
-	// c == 'b' || c == 'r')
 		return (1);
 	return (0);
 }
@@ -54,8 +47,7 @@ s_args		*ft_make_blank_list(int counter)
 	s_args		*list;
 
 	if (!(list = malloc(sizeof(s_args))))
-		ft_errors();
-	list->param_field = 0;
+		ft_error();
 	list->parameter = counter;
 	list->n_arg_width = 0;
 	list->n_arg_precision = 0;
@@ -99,8 +91,8 @@ s_args		*ft_format_string_parse(char *str)
 			while (*str != tmp_list->type)
 			{
 				tmp_str = str;
-				str += ft_find_width(str, tmp_list);
 				str += ft_find_parameter(str, tmp_list);
+				str += ft_find_width(str, tmp_list);
 				str += ft_find_precision(str, tmp_list);
 				str += ft_find_length(str, tmp_list);
 				str += ft_find_flag(*str, tmp_list);

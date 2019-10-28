@@ -14,7 +14,7 @@ C_FILES = 	ft_printf.c\
 			ft_put_bits.c\
 			ft_put_integer_arg.c\
 			ft_put_floating_arg.c\
-			ft_errors.c\
+			ft_error.c\
 			ft_strchr.c\
 			ft_clear_the_struct.c\
 			ft_itoa_base.c\

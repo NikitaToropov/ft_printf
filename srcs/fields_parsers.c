@@ -4,7 +4,6 @@ int		ft_find_parameter(char *str, s_args *list)
 {
 	if ((str[0] >= '1' && str[0] <= '9' && str[1] == '$'))
 	{
-		list->param_field = 1;
 		list->parameter = str[0] - '0';
 		return (2);
 	}
@@ -22,7 +21,6 @@ int		ft_find_width(char *str, s_args *list)
 		list->width = -1;
 		if ((str[1] >= '1' && str[1] <= '9') && str[2] == '$')
 		{
-			list->param_field = 1;
 			list->n_arg_width = str[1] - '0';
 			return (3);
 		}
@@ -56,7 +54,6 @@ int		ft_find_precision(char *str, s_args *list)
 		list->precision = -1;
 		if ((str[2] >= '1' && str[2] <= '9') && str[3] == '$')
 		{
-			list->param_field = 1;
 			list->n_arg_precision = str[2] - '0';
 			return (4);
 		}

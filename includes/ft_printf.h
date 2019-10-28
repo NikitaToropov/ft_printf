@@ -9,7 +9,8 @@
 # include <locale.h> // dont rmmbr
 # include <stdio.h> // dont rmmbr
 
-#define ULL "unsigned long long int"
+#define LDBL_DIG 18
+#define DBL_DIG 15
 
 //Syntax:
 //			%[parameter][flags][width][.precision][length]type
@@ -18,9 +19,10 @@
 	// 	HASH == (char)1;
 	// 	ZERO == (char)2;
 	// 	MINUS == (char)4;
-	// 	MINUS == (char)8;
-	// 	MINUS == (char)16;
+	// 	SPACE == (char)8;
+	// 	PLUS == (char)16;
 	// 	APOSTROPHE == (char)32;
+	// 	BINARY == (char)64;
 
 // LENGTH:
 	// 	l == l;
@@ -31,15 +33,14 @@
 
 typedef struct		t_list
 {
-	int				param_field;
-	int				parameter;
-	int				n_arg_width;
-	int				n_arg_precision;
-	int				n_arg;
+	int				parameter; //bonus part - $
+	int				n_arg_width;//not a vlue but number of arg 0-9, taken from IBM manual for width, hardcoded in original printf
+	int				n_arg_precision;//"--"
+	int				n_arg;//argument number can be more than 10
 
-	int				width;
-	int				precision;
-	char			*arg;
+	int				width;//values of arguments - checked manually, in original printf they keep it in ints
+	int				precision;//values of arguments - checked manually, in original printf they keep it in ints
+	char			*arg;//values of arguments
 
 	char			flags;
 	char			length;
@@ -48,7 +49,7 @@ typedef struct		t_list
 	struct t_list	*next;
 }					s_args;
 
-void		ft_errors(void);
+void		ft_error(void);
 
 char		*ft_itoa(long long n);
 char		*ft_itoa_base(unsigned long long n, int base);
@@ -58,10 +59,6 @@ char		*ft_itoa_pointer(unsigned long long n);
 int			ft_atoi(const char *str);
 char		*ft_utf_8_coder(int sym);
 char		*ft_put_bits(void *c, unsigned int len);
-
-
-
-// void    	ft_check_the_valid(s_args *list);
 
 void		ft_clear_the_struct(s_args **first);
 char		*ft_strchr(const char *s, int c);

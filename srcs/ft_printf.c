@@ -54,11 +54,11 @@ char	ft_selector_of_types(s_args *list, int counter_arg)
 
 void	ft_put_the_arg_in_lists(s_args *list, int num, unsigned long long integer_arg, long double floating_arg)
 {
-	while (list) 
+	while (list) // add
 	{
-		if (list->n_arg_width == num)
+		if (list->n_arg_width == num && list->width == -1)
 			list->width = (int)integer_arg;
-		if (list->n_arg_precision == num)
+		if (list->n_arg_precision == num && list->precision == -1)
 			list->precision = (int)integer_arg;
 		if (list->n_arg == num)
 		{

@@ -25,7 +25,7 @@ char	*ft_itoa(long long n)
 		number = (unsigned long long)(n * -1);
 	len = ft_len(n);
 	if (!(result = (char*)malloc(sizeof(char) * (len + 1))))
-		ft_errors();
+		ft_error();
 	result[len--] = '\0';
 	if (n < 0)
 		result[0] = '-';
@@ -36,8 +36,3 @@ char	*ft_itoa(long long n)
 	}
 	return (result);
 }
-
-
-// получаем аргументы как:
-// va_argv(ap, long long)
-// внутри вызова итоа кастим в соответствующий тип: hhd ft_itoa((char)i)

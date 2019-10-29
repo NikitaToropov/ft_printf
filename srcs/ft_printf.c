@@ -80,7 +80,7 @@ void	ft_put_the_arg_in_lists(s_args *list, int num, unsigned long long integer_a
 	}
 }
 
-int			ft_printf(const char *format, ...)
+int		ft_printf(const char *format, ...)
 {
 	va_list					ap;
 	s_args					*first_list;
@@ -89,12 +89,10 @@ int			ft_printf(const char *format, ...)
 	int						counter_arg;
 
 
-	first_list = NULL;
-	if (ft_strchr(format, '%'))
+	first_list = ft_string_parse((char*)format);
+	if (first_list)
 	{
-		first_list = ft_format_string_parse((char*)format);
 		va_start(ap, format);
-
 		num_of_ltst_arg = ft_find_ltst_arg(first_list);
 		counter_arg = 1;
 		while (counter_arg <= num_of_ltst_arg)
@@ -107,10 +105,11 @@ int			ft_printf(const char *format, ...)
 			else if (type_selector == 'F')
 				ft_put_the_arg_in_lists(first_list, counter_arg, 0, va_arg(ap, long double));
 			else
-				ft_error(2);
+				va_arg(ap, long long int);
 			counter_arg++;
 		}
 		va_end(ap);
+		ft_modify_str_arg(first_list);
 	}
 	
 	while (first_list)

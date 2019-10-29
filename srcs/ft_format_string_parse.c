@@ -31,17 +31,6 @@ char	ft_find_type(char *str)
 	return ('\0');
 }
 
-int		ft_check_the_type(char c)
-{
-	if (c == 'c' || c == 's' ||
-	c == 'p' || c == 'i' ||
-	c == 'd' || c == 'u' ||
-	c == 'o' || c == 'x' ||
-	c == 'X' || c == 'f')
-		return (1);
-	return (0);
-}
-
 s_args		*ft_make_blank_list(int counter)
 {
 	s_args		*list;
@@ -65,11 +54,37 @@ s_args		*ft_make_blank_list(int counter)
 	return (list);
 }
 
-s_args		*ft_format_string_parse(char *str)
+char		*ft_format_string_parse(s_args *list, char *str)
 {
-	s_args			*first_list;
-	s_args			*tmp_list;
 	char			*tmp_str;
+
+	list->type = ft_find_type(str);
+	while (*str != list->type)
+	{
+		tmp_str = str;
+		str += ft_find_parameter(str, list);
+		str += ft_find_width(str, list);
+		str += ft_find_precision(str, list);
+		str += ft_find_length(str, list);
+		str += ft_find_flag(*str, list);
+		if (tmp_str == str)
+		{
+			list->type = *str;
+			break ;
+		}
+	}
+	if (tmp_str != str) // cause not UB
+	{
+		list->n_arg = list->parameter;
+		list->parameter += 1;
+	}
+	return (str);
+}
+
+s_args		*ft_string_parse(char *str)
+{
+	s_args			*list;
+	s_args			*first_list;
 	
 	first_list = NULL;
 	while (*str)
@@ -80,35 +95,16 @@ s_args		*ft_format_string_parse(char *str)
 			if (!first_list)
 			{
 				first_list = ft_make_blank_list(1);
-				tmp_list = first_list;
+				list = first_list;
 			}
 			else
 			{
-				tmp_list->next = ft_make_blank_list(tmp_list->parameter);
-				tmp_list = tmp_list->next;
+				list->next = ft_make_blank_list(list->parameter);
+				list = list->next;
 			}
-			tmp_list->type = ft_find_type(str);
-			while (*str != tmp_list->type)
-			{
-				tmp_str = str;
-				str += ft_find_parameter(str, tmp_list);
-				str += ft_find_width(str, tmp_list);
-				str += ft_find_precision(str, tmp_list);
-				str += ft_find_length(str, tmp_list);
-				str += ft_find_flag(*str, tmp_list);
-				if (tmp_str == str)
-				{
-					tmp_list->type = *str;
-					break ;
-				}
-			}
-			if (ft_check_the_type(tmp_list->type))
-			{
-				tmp_list->n_arg = tmp_list->parameter;
-				tmp_list->parameter += 1;
-			}
+			str = ft_format_string_parse(list, str);
 		}
 		str++;
-	}	
+	}
 	return (first_list);
 }

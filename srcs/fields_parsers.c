@@ -2,10 +2,17 @@
 
 int		ft_find_parameter(char *str, s_args *list)
 {
-	if ((str[0] >= '1' && str[0] <= '9' && str[1] == '$'))
+	char	*tmp_str;
+
+	if (*str == '0')
+		return (0);
+	tmp_str = str;
+	while (*tmp_str >= '0' && *tmp_str <= '9')
+		tmp_str++;
+	if (*tmp_str == '$')
 	{
-		list->parameter = str[0] - '0';
-		return (2);
+		list->parameter = ft_atoi(str);
+		return (tmp_str - str + 1);
 	}
 	return (0);
 }
@@ -18,7 +25,6 @@ int		ft_find_width(char *str, s_args *list)
 		return (0);
 	if (str[0] == '*')
 	{
-		list->width = -1;
 		if ((str[1] >= '1' && str[1] <= '9') && str[2] == '$')
 		{
 			list->n_arg_width = str[1] - '0';
@@ -34,7 +40,7 @@ int		ft_find_width(char *str, s_args *list)
 	tmp_str = str;
 	while (*tmp_str >= '0' && *tmp_str <= '9')
 		tmp_str++;
-	if (tmp_str != str && *tmp_str != '$' && *tmp_str != '.')
+	if (tmp_str != str && *tmp_str != '$')
 	{
 		list->width = ft_atoi(str);
 		list->n_arg_width = 0;
@@ -47,7 +53,7 @@ int		ft_find_precision(char *str, s_args *list)
 {
 	char	*tmp_str;
 
-	if (str[0] != '.' || str[1] == '0')
+	if (str[0] != '.')
 		return (0);
 	if (str[1] == '*')
 	{
@@ -67,7 +73,7 @@ int		ft_find_precision(char *str, s_args *list)
 	tmp_str = &str[1];
 	while (*tmp_str >= '0' && *tmp_str <= '9')
 		tmp_str++;
-	if (tmp_str != str)
+	if (tmp_str != &str[1])
 	{
 		list->precision = ft_atoi(&str[1]);
 		list->n_arg_precision = 0;

@@ -57,6 +57,9 @@ char		*ft_itoa_base(unsigned long long n, int base);
 char		*ft_itoa_base_uppercase(unsigned long long n, int base);
 char		*ft_itoa_pointer(unsigned long long n);
 
+int			ft_strlen(const char *s);
+
+
 int			ft_atoi(const char *str);
 char		*ft_utf_8_coder(int sym);
 void		ft_put_bits(void *c, s_args *list); // checkit some problems with mush args
@@ -64,6 +67,9 @@ void		ft_put_bits(void *c, s_args *list); // checkit some problems with mush arg
 
 void		ft_clear_the_struct(s_args **first);
 char		*ft_strchr(const char *s, int c);
+
+void		ft_precision_modifying(s_args *list);
+void		ft_modify_str_arg(s_args *first_list);
 
 void		ft_put_floating_arg(s_args *list, long double argument);
 void		ft_put_integer_arg(s_args *list, unsigned long long arg); // norme correction CHECK work or no
@@ -74,7 +80,8 @@ int			ft_find_width(char *str, s_args *list);
 int			ft_find_precision(char *str, s_args *list);
 int			ft_find_length(char *str, s_args *list);
 int			ft_find_flag(char symbol, s_args *list);
-s_args		*ft_format_string_parse(char *str);
+s_args		*ft_string_parse(char *str);
+// s_args		*ft_format_string_parse(char *str);
 
 // s_args		*ft_make_struct(const char *format, ...);
 int			ft_printf(const char *format, ...);

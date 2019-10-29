@@ -2,7 +2,7 @@
 
 unsigned int	ft_len(long long number)
 {
-	unsigned int	len;
+	unsigned int			len;
 
 	len = 1;
 	if (number < 0)
@@ -12,7 +12,7 @@ unsigned int	ft_len(long long number)
 	return (len);
 }
 
-char	*ft_itoa(long long n)
+char			*ft_itoa(long long n)
 {
 	char					*result;
 	unsigned long long		number;

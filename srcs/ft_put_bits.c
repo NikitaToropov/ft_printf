@@ -41,7 +41,7 @@ void	ft_put_bits(void *c, s_args *list)
 	if (list->type == 'f')
 	{
 		if (list->length == 'F')
-			len = sizeof(long double);
+			len = 10;
 		else
 			len = sizeof(double);
 	}

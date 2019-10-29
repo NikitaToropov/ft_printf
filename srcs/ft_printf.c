@@ -54,7 +54,7 @@ char	ft_selector_of_types(s_args *list, int counter_arg)
 
 void	ft_put_the_arg_in_lists(s_args *list, int num, unsigned long long integer_arg, long double floating_arg)
 {
-	while (list) // add
+	while (list)
 	{
 		if (list->n_arg_width == num && list->width == -1)
 			list->width = (int)integer_arg;
@@ -62,9 +62,18 @@ void	ft_put_the_arg_in_lists(s_args *list, int num, unsigned long long integer_a
 			list->precision = (int)integer_arg;
 		if (list->n_arg == num)
 		{
-			if (ft_check_integer_type(list->type))
+			if (list->flags & BIN_FLAG &&
+			(list->type == 'd' || list->type == 'i' || list->type == 'u' ||
+			list->type == 'c' || list->type == 'f'))
+			{
+				if (integer_arg)
+					ft_put_bits(&integer_arg, list);
+				else
+					ft_put_bits(&floating_arg, list);
+			}
+			else if (ft_check_integer_type(list->type))
 				ft_put_integer_arg(list, integer_arg);
-			if (list->type == 'f')
+			else if (list->type == 'f')
 				ft_put_floating_arg(list, floating_arg);
 		}
 		list = list->next;
@@ -98,8 +107,7 @@ int			ft_printf(const char *format, ...)
 			else if (type_selector == 'F')
 				ft_put_the_arg_in_lists(first_list, counter_arg, 0, va_arg(ap, long double));
 			else
-				va_arg(ap, unsigned long long);
-				// or error think about it
+				ft_error(2);
 			counter_arg++;
 		}
 		va_end(ap);

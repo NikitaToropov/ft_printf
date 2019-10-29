@@ -73,7 +73,6 @@ char	*ft_ld_string(int sign_dig, int int_len, int frac_len, long double ld)
 	char				*str;
 	int					len;
 
-	printf("sign_dig = %i || frac = %i || int = %i", sign_dig, frac_len, int_len);
 	tmp = ld;
 	if (ld < 0)
 	{
@@ -88,7 +87,7 @@ char	*ft_ld_string(int sign_dig, int int_len, int frac_len, long double ld)
 	
 	if (!(str = malloc(sizeof(char) * (len + 1))))
 	{
-		ft_error();
+		ft_error(1);
 	}
 	ft_fill_by_int(str, sign_dig, int_len, ld);
 	if (frac_len)
@@ -129,13 +128,32 @@ char	*ft_put_long_double_arg(s_args *list, long double argument)
 
 void	ft_put_floating_arg(s_args *list, long double argument)
 {
-	double		double_argument;
+	int				int_len;
+	int				frac_len;
+	long double 	tmp;
+	int				sign_dig; //significant digits
 
-	double_argument = (double)argument;
-	if (list->flags & 64 && list->length == 'F')
-		list->arg = ft_put_bits(&argument, sizeof(long double));
-	else if (list->flags & 64 && list->length != 'F')
-		list->arg = ft_put_bits(&double_argument, sizeof(double));
+
+	if (!argument)
+		list->arg = "0";
+	else if (argument != argument)
+		list->arg = "nan";
+	else if (argument == (argument + argument) && argument > 0)
+		list->arg = "inf";
+	else if (argument == (argument + argument) && argument < 0)
+		list->arg = "-inf";
 	else
-		list->arg = ft_put_long_double_arg(list, argument);
+	{
+		tmp = argument;
+		if (tmp < 0)
+			tmp *= -1;
+		int_len = 1;
+		if (list->length == 'F')
+			sign_dig = LDBL_DIG;
+		else
+			sign_dig = DBL_DIG;
+		int_len = ft_count_int_length(tmp);
+		frac_len = ft_count_frac_len(sign_dig, int_len, tmp);
+		list->arg = ft_ld_string(sign_dig, int_len, frac_len, argument);
+	}
 }

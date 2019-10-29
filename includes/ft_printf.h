@@ -11,6 +11,7 @@
 
 #define LDBL_DIG 18
 #define DBL_DIG 15
+#define BIN_FLAG 64
 
 //Syntax:
 //			%[parameter][flags][width][.precision][length]type
@@ -49,7 +50,7 @@ typedef struct		t_list
 	struct t_list	*next;
 }					s_args;
 
-void		ft_error(void);
+void		ft_error(int code);
 
 char		*ft_itoa(long long n);
 char		*ft_itoa_base(unsigned long long n, int base);
@@ -58,13 +59,14 @@ char		*ft_itoa_pointer(unsigned long long n);
 
 int			ft_atoi(const char *str);
 char		*ft_utf_8_coder(int sym);
-char		*ft_put_bits(void *c, unsigned int len);
+void		ft_put_bits(void *c, s_args *list); // checkit some problems with mush args
+// char		*ft_put_bits(void *c, unsigned int len);
 
 void		ft_clear_the_struct(s_args **first);
 char		*ft_strchr(const char *s, int c);
 
 void		ft_put_floating_arg(s_args *list, long double argument);
-void		ft_put_integer_arg(s_args *list, unsigned long long arg);
+void		ft_put_integer_arg(s_args *list, unsigned long long arg); // norme correction CHECK work or no
 
 
 int			ft_find_parameter(char *str, s_args *list);

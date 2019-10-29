@@ -47,7 +47,7 @@ s_args		*ft_make_blank_list(int counter)
 	s_args		*list;
 
 	if (!(list = malloc(sizeof(s_args))))
-		ft_error();
+		ft_error(1);
 	list->parameter = counter;
 	list->n_arg_width = 0;
 	list->n_arg_precision = 0;

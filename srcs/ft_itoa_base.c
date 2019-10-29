@@ -22,7 +22,7 @@ char	*ft_itoa_base(unsigned long long n, int base)
 		return ("0\0");
 	len = ft_uns_len(n, base);
 	if (!(result = (char*)malloc(sizeof(char) * (len + 1))))
-		ft_error();
+		ft_error(1);
 	result[len] = '\0';
 	while (n > 0)
 	{
@@ -47,7 +47,7 @@ char	*ft_itoa_base_uppercase(unsigned long long n, int base)
 		return ("0\0");
 	len = ft_uns_len(n, base);
 	if (!(result = (char*)malloc(sizeof(char) * (len + 1))))
-		ft_error();
+		ft_error(1);
 	result[len] = '\0';
 	while (n > 0)
 	{
@@ -71,7 +71,7 @@ char	*ft_itoa_pointer(unsigned long long n)
 		return ("0x0\0");
 	len = ft_uns_len(n, 16) + 2;
 	if (!(result = (char*)malloc(sizeof(char) * (len + 1))))
-		ft_error();
+		ft_error(1);
 	result[len] = '\0';
 	result[0] = '0';
 	result[1] = 'x';

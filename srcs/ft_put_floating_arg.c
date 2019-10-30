@@ -1,72 +1,73 @@
 #include "ft_printf.h"
 
-int		ft_count_int_length(long double uns_arg)
+void	ft_length_counter(int *i_len, int *f_len, int s_dig, long double ld)
 {
-	int		int_len;
+	long double		ld_copy;
 
-	int_len = 1;
-	while ((uns_arg /= 10) >= 1)
-		int_len++;
-	return (int_len);
+	ld_copy = ld;
+	*i_len = 1;
+	while ((ld_copy /= 10) >= 1)
+		*i_len += 1;
+
+	*f_len = 0;
+	if (*i_len == 1 && ld < 1)
+	{
+		while ((ld *= 10) < 1)
+			*f_len += 1;
+		*f_len += s_dig;
+	}
+	else if (*i_len < s_dig)
+		*f_len = s_dig - *i_len;
+	if (*f_len < 6)
+		*f_len = 6;
 }
 
-int		ft_count_frac_len(int sign_dig, int int_len, long double uns_arg)
+void	ft_fill_str(char *str, int i_len, int f_len, int s_dig, long double ld)
 {
-	int		frac_len;
+	int				dyn_s_dig; //dynamic s_dig
+	long double		ld_copy;
+	int				counter;
 
-	if (int_len == 1 && uns_arg < 1)
+	dyn_s_dig = s_dig;
+	str[i_len] = '.';
+	counter = i_len - 1;
+	ld_copy = ld;
+	while (counter >= 0)
 	{
-		frac_len = 0;
-		while ((uns_arg *= 10) < 1)
-			frac_len++;
-		frac_len += sign_dig;
-	}
-	else
-	{
-		if (int_len >= sign_dig)
-			frac_len = 0;
+		if (counter >= s_dig)
+			str[counter] = '0';
 		else
-			frac_len = sign_dig - int_len;
+		{
+			str[counter] = ((unsigned long long int)ld_copy % 10) + '0';
+			dyn_s_dig--;
+		}
+		ld_copy /= 10;
+		counter--;
 	}
-	if (frac_len < 6)
-		frac_len = 6;
-	return (frac_len);
-}
-
-void	ft_fill_by_int(char *str, int sign_dig, int rev_counter, long double ld)
-{
-	str[rev_counter] = '.';
-	rev_counter--;
-	while (rev_counter >= 0)
+	counter++;
+	str = &str[i_len + 1];
+	while (counter < f_len)
 	{
-		if (rev_counter >= sign_dig)
-			str[rev_counter] = '0';
+		ld *= 10;
+		if (!dyn_s_dig ||
+		((f_len - counter) > dyn_s_dig && dyn_s_dig == s_dig) ||
+		((f_len - counter) < dyn_s_dig && dyn_s_dig != s_dig))
+			str[counter] = '0';
 		else
-			str[rev_counter] = ((unsigned long long int)ld % 10) + '0';
-		ld /= 10;
-		rev_counter--;
-	}
-}
-
-void	ft_fill_by_frac(char *str, int frac_len, long double uns_ld)
-{
-	int		counter;
-
-	counter = 0;
-	while (counter < frac_len)
-	{
-		uns_ld *= 10;
-		str[counter] = ((unsigned long long int)uns_ld % 10) + '0';
+		{
+			str[counter] = ((unsigned long long int)ld % 10) + '0';
+			dyn_s_dig--;
+		}
 		counter++;
 	}
 }
 
-char	*ft_ld_string(int sign_dig, int int_len, int frac_len, long double ld)
+char	*ft_ld_string(int s_dig, int i_len, int f_len, long double ld)
 {
 	char				*str;
 	int					len;
 
-	len = frac_len + int_len + 1;
+	len = f_len + i_len + 1;
 	if (ld < 0)
 		len++;
 
@@ -77,14 +78,10 @@ char	*ft_ld_string(int sign_dig, int int_len, int frac_len, long double ld)
 	if (ld < 0)
 	{
 		str[0] = '-';
-		ft_fill_by_int(&str[1], sign_dig, int_len, ld * (-1));
-		ft_fill_by_frac(&str[int_len + 2], frac_len, ld * (-1));
+		ft_fill_str(&str[1], i_len, f_len, s_dig, ld * (-1));
 	}
 	else
-	{
-		ft_fill_by_int(str, sign_dig, int_len, ld);
-		ft_fill_by_frac(&str[int_len + 1], frac_len, ld);
-	}
+		ft_fill_str(str, i_len, f_len, s_dig, ld);
 	
 	return (str);
 }
@@ -110,13 +107,11 @@ void	ft_put_floating_arg(s_args *list, long double argument)
 		tmp = argument;
 		if (tmp < 0)
 			tmp *= -1;
-		int_len = 1;
 		if (list->length == 'F')
 			sign_dig = LDBL_DIG;
 		else
 			sign_dig = DBL_DIG;
-		int_len = ft_count_int_length(tmp);
-		frac_len = ft_count_frac_len(sign_dig, int_len, tmp);
+		ft_length_counter(&int_len, &frac_len, sign_dig, tmp);
 		list->arg = ft_ld_string(sign_dig, int_len, frac_len, argument);
 	}
 }

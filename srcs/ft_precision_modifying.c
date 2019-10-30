@@ -30,11 +30,19 @@ void	ft_precision_p(s_args *list)
 	}
 }
 
+// void	ft_precision_f(s_args *list)
+// {
+
+// }
+
 void	ft_precision_modifying(s_args *list)
 {
-	if (list->type == 'p')
-		ft_precision_p(list);
-	// if (list->type == 'f')
-	// 	ft_precision_f(list);
+	if (list->flags & BIN_FLAG)
+	{
+		if (list->type == 'p')
+			ft_precision_p(list);
+		// if (list->type == 'f')
+		// 	ft_precision_f(list);
+	}
 
 }

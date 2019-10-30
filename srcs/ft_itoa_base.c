@@ -68,7 +68,7 @@ char	*ft_itoa_pointer(unsigned long long n)
 	char 					l[] = "abcdef";
 
 	if (n == 0)
-		return ("0x0\0");
+		return ("0x0");
 	len = ft_uns_len(n, 16) + 2;
 	if (!(result = (char*)malloc(sizeof(char) * (len + 1))))
 		ft_error(1);

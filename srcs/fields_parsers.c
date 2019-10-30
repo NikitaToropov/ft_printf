@@ -130,10 +130,10 @@ int		ft_find_flag(char symbol, s_args *list)
 		list->flags |= 32;
 	else if (symbol == 'b')
 		list->flags |= 64;	
-	if (list->type == 'c' || list->type == 'd' ||
-	list->type == 'p' || list->type == 's' ||
-	list->type == 'i')
-		list->flags &= 254; //ignore flag '#'
+	// if (list->type == 'c' || list->type == 'd' ||
+	// list->type == 'p' || list->type == 's' ||
+	// list->type == 'i')
+	// 	list->flags &= 254; //ignore flag '#'
 	if (list->flags & 16) // if flag '+' then ignore ' '
 		list->flags &= 247;
 	if (symbol == '#' || symbol == '0' ||

@@ -2,7 +2,7 @@
 
 char	*ft_make_string_bin(void *c, int len)
 {
-	unsigned char	scaner;
+	unsigned char	scanner;
 	unsigned char	*byte;
 	char			*str;
 	unsigned int	pos;
@@ -12,20 +12,20 @@ char	*ft_make_string_bin(void *c, int len)
 	pos = 0;
 	while (byte >= (unsigned char*)c)
 	{
-		scaner = 128;
-		while (scaner)
+		scanner = 128;
+		while (scanner)
 		{
-			if (*byte & scaner)
+			if (*byte & scanner)
 				str[pos] = '1';
 			else
 				str[pos] = '0';
 			pos++;
-			if (scaner == 16 || (scaner == 1 && byte != (unsigned char*)c))
+			if (scanner == 16 || (scanner == 1 && byte != (unsigned char*)c))
 			{
 				str[pos] = ' ';
 				pos++;
 			}
-			scaner /= 2;
+			scanner /= 2;
 		}
 		byte--;
 	}	

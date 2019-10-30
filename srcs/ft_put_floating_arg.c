@@ -8,7 +8,6 @@ void	ft_length_counter(int *i_len, int *f_len, int s_dig, long double ld)
 	*i_len = 1;
 	while ((ld_copy /= 10) >= 1)
 		*i_len += 1;
-
 	*f_len = 0;
 	if (*i_len == 1 && ld < 1)
 	{
@@ -110,26 +109,20 @@ char	*ft_ld_string(int s_dig, int i_len, int f_len, long double ld)
 	len = f_len + i_len + 1;
 	if (ld < 0)
 		len++;
-
 	if (!(str = malloc(sizeof(char) * (len + 1))))
 		ft_error(1);
 	str[len] = '\0';
-
 	if (ld < 0)
 	{
 		str[0] = '-';
 		ft_fill_by_int(&str[1], i_len, &dyn_s_dig, ld * (-1));
 		ft_fill_by_fr(&str[i_len + 2], f_len, dyn_s_dig, s_dig, ld * (-1));
-		// ft_fill_str(&str[1], i_len, f_len, s_dig, ld * (-1));
 	}
 	else
 	{
 		ft_fill_by_int(str, i_len, &dyn_s_dig, ld);
 		ft_fill_by_fr(&str[i_len + 1], f_len, dyn_s_dig, s_dig, ld);
-		// ft_fill_str(str, i_len, f_len, s_dig, ld);
-
 	}
-	
 	return (str);
 }
 

@@ -17,7 +17,7 @@ int		main(void)
 
 	// ft_printf("%>i %d %c %04$5i\n", 1, 2, 3, 4, 5, 6);
 	// printf("%.3p\n", 255);
-	ft_printf("%.15p\n", 255);
+	ft_printf("%Lf\n", -123456789000000000.01234567890L);
 	// ft_printf("%p\n", 0);
 
 	return (0);

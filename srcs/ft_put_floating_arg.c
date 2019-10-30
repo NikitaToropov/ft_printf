@@ -22,6 +22,44 @@ void	ft_length_counter(int *i_len, int *f_len, int s_dig, long double ld)
 		*f_len = 6;
 }
 
+void	ft_fill_by_int(char *str, int counter, int *dyn_s_dig, long double ld)
+{
+	str[counter] = '.';
+	counter--;
+	while (counter >= 0)
+	{
+		if (counter >= *dyn_s_dig || ld < 1)
+			str[counter] = '0';
+		else
+		{
+			str[counter] = ((unsigned long long int)ld % 10) + '0';
+			*dyn_s_dig -= 1;
+		}
+		ld /= 10;
+		counter--;
+	}
+}
+
+void	ft_fill_by_fr(char *s, int f_len, int dyn_d, int stat_d, long double ld)
+{
+	int		counter;
+
+	counter = 0;
+	printf("dyn_d = '%d' || stat_d = '%d\n'", dyn_d, stat_d);
+	while (counter < f_len)
+	{
+		ld *= 10;
+		if (!dyn_d || (dyn_d == stat_d && (f_len - counter) > stat_d))
+			s[counter] = '0';
+		else
+		{
+			s[counter] = ((unsigned long long int)ld % 10) + '0';
+			dyn_d--;
+		}
+		counter++;
+	}
+}
+
 void	ft_fill_str(char *str, int i_len, int f_len, int s_dig, long double ld)
 {
 	int				dyn_s_dig; //dynamic s_dig
@@ -66,7 +104,9 @@ char	*ft_ld_string(int s_dig, int i_len, int f_len, long double ld)
 {
 	char				*str;
 	int					len;
+	int					dyn_s_dig;
 
+	dyn_s_dig = s_dig;
 	len = f_len + i_len + 1;
 	if (ld < 0)
 		len++;
@@ -78,10 +118,17 @@ char	*ft_ld_string(int s_dig, int i_len, int f_len, long double ld)
 	if (ld < 0)
 	{
 		str[0] = '-';
-		ft_fill_str(&str[1], i_len, f_len, s_dig, ld * (-1));
+		ft_fill_by_int(&str[1], i_len, &dyn_s_dig, ld * (-1));
+		ft_fill_by_fr(&str[i_len + 2], f_len, dyn_s_dig, s_dig, ld * (-1));
+		// ft_fill_str(&str[1], i_len, f_len, s_dig, ld * (-1));
 	}
 	else
-		ft_fill_str(str, i_len, f_len, s_dig, ld);
+	{
+		ft_fill_by_int(str, i_len, &dyn_s_dig, ld);
+		ft_fill_by_fr(&str[i_len + 1], f_len, dyn_s_dig, s_dig, ld);
+		// ft_fill_str(str, i_len, f_len, s_dig, ld);
+
+	}
 	
 	return (str);
 }
@@ -95,7 +142,7 @@ void	ft_put_floating_arg(s_args *list, long double argument)
 
 
 	if (!argument)
-		list->arg = "0";
+		list->arg = "0.000000";
 	else if (argument != argument)
 		list->arg = "nan";
 	else if (argument == (argument + argument) && argument > 0)

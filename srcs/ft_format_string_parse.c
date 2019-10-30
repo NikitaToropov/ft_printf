@@ -68,10 +68,7 @@ char		*ft_format_string_parse(s_args *list, char *str)
 		str += ft_find_length(str, list);
 		str += ft_find_flag(*str, list);
 		if (tmp_str == str)
-		{
 			list->type = *str;
-			break ;
-		}
 	}
 	if (tmp_str != str) // cause not UB
 	{

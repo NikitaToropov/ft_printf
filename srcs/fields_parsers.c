@@ -40,7 +40,7 @@ int		ft_find_width(char *str, s_args *list)
 	tmp_str = str;
 	while (*tmp_str >= '0' && *tmp_str <= '9')
 		tmp_str++;
-	if (tmp_str != str && *tmp_str != '$')
+	if (tmp_str != str)
 	{
 		list->width = ft_atoi(str);
 		list->n_arg_width = 0;

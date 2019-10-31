@@ -63,7 +63,6 @@ void	ft_precision_f(s_args *list)
 	old_len = ft_strlen(list->arg);
 	new_len = ft_strchr(list->arg, '.') - list->arg;
 	frac_len = ft_strlen(list->arg);
-
 	if (list->precision == frac_len)
 		return ;
 	else if (!list->precision && list->arg[0] == '-' && list->arg[1] == '0')

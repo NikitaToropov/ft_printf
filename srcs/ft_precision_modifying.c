@@ -30,52 +30,51 @@ void	ft_precision_p(s_args *list)
 	}
 }
 
-void	ft_precision_f(s_args *list)
+void	ft_new_str_f(s_args *list, int old_len, int new_len)
 {
-	int		frac_len;
-	int		int_len;
-	int		new_len;
-	int		counter;
 	char	*tmp;
+	int		counter;
 
-
-	if (list->precision == -1)
-		list->precision = 6;
-
-	tmp = ft_strchr(list->arg, '.') + 1;
-
-	frac_len = ft_strlen(tmp);
-	int_len = tmp - list->arg - 1;
 	tmp = list->arg;
-	
-	if (list->precision == frac_len)
-		return ;
-	else if (list->precision == 0)
-	{
-		if (list->arg[0] == '-' && list->arg[1] == '0')
-		{
-			free(list->arg);
-			list->arg = "0";
-			return ;
-		}
-		new_len = int_len;
-	}
-	else
-		new_len = int_len + list->precision + 1;
-
 	if (!(list->arg = (char*)malloc(sizeof(char) * (new_len + 1))))
 		ft_error(1);
 	list->arg[new_len] = '\0';
 	counter = 0;
 	while (counter < new_len)
 	{
-		if (tmp[counter])
+		if (counter < old_len)
 			list->arg[counter] = tmp[counter];
 		else
 			list->arg[counter] = '0';
 		counter++;
 	}
 	free(tmp);
+}
+
+
+void	ft_precision_f(s_args *list)
+{
+	int		frac_len;
+	int		old_len;
+	int		new_len;
+
+	if (list->precision == -1)
+		list->precision = 6;
+	old_len = ft_strlen(list->arg);
+	new_len = ft_strchr(list->arg, '.') - list->arg;
+	frac_len = ft_strlen(list->arg);
+
+	if (list->precision == frac_len)
+		return ;
+	else if (!list->precision && list->arg[0] == '-' && list->arg[1] == '0')
+	{
+		free(list->arg);
+		list->arg = "0";
+		return ;
+	}
+	else if (list->precision > frac_len || list->precision < frac_len)
+		new_len += list->precision + 1;
+	ft_new_str_f(list, old_len, new_len);
 }
 
 void	ft_precision_modifying(s_args *list)

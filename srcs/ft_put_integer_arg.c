@@ -88,5 +88,5 @@ void	ft_put_integer_arg(s_args *list, unsigned long long argument)
 	if (list->type == 'c')
 		list->arg = ft_utf_8_coder((int)argument);
 	if (list->type == 's')
-		list->arg = (char*)argument;
+		list->arg = ft_strdup((char*)argument);
 }

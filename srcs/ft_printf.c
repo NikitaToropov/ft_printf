@@ -133,6 +133,8 @@ int		ft_printf(const char *format, ...)
 
 		first_list = first_list->next;
 	}
+
+
 	ft_clear_the_struct(&first_list);
 	return (0);
 }

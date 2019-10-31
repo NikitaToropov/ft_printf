@@ -19,6 +19,7 @@ C_FILES = 	ft_printf.c\
 			ft_error.c\
 			ft_strchr.c\
 			ft_strlen.c\
+			ft_strdup.c\
 			ft_clear_the_struct.c\
 			ft_itoa_base.c\
 			ft_itoa.c\

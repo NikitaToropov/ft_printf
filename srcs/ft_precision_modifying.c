@@ -51,7 +51,6 @@ void	ft_new_str_f(s_args *list, int old_len, int new_len)
 	free(tmp);
 }
 
-
 void	ft_precision_f(s_args *list)
 {
 	int		frac_len;
@@ -68,7 +67,7 @@ void	ft_precision_f(s_args *list)
 	else if (!list->precision && list->arg[0] == '-' && list->arg[1] == '0')
 	{
 		free(list->arg);
-		list->arg = "0";
+		list->arg = ft_strdup("0");
 		return ;
 	}
 	else if (list->precision > frac_len || list->precision < frac_len)
@@ -76,37 +75,19 @@ void	ft_precision_f(s_args *list)
 	ft_new_str_f(list, old_len, new_len);
 }
 
-void	ft_precision_s(s_args *list)
-{
-	int		old_len;
-	int		counter;
-	char	*tmp;
-	
-	old_len = ft_strlen(list->arg);
-	if (old_len > list->precision)
-	{
-		// or maybe that:
-		// list->arg[list->precision] = '\0';// check it!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		tmp = list->arg; // did'n want freeing cause arg just put in list->arg wiwhout allocation
-		if (!(list->arg = (char*)malloc(sizeof(char) * (list->precision + 1))))
-			ft_error(1);
-		counter = 0;
-		while (counter < list->precision)
-		{
-			list->arg[counter] = tmp[counter];
-			counter++;
-		}
-	}
-}
-
-
 void	ft_precision_modifying(s_args *list)
 {
+	int		old_len;
+
 	if (list->type == 'f' && !(list->flags & BIN_FLAG))
 			ft_precision_f(list);
 	else if (list->type == 'p' && list->precision != -1 &&
 	!(list->flags & BIN_FLAG))
 			ft_precision_p(list);
 	else if (list->precision != -1 && list->type == 's')
-		ft_precision_s(list);
+	{
+		old_len = ft_strlen(list->arg);
+		if (old_len > list->precision)
+			list->arg[list->precision] = '\0';
+	}
 }

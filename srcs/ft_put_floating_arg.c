@@ -58,46 +58,6 @@ void	ft_fill_by_fr(char *s, int f_len, int dyn_d, int stat_d, long double ld)
 	}
 }
 
-void	ft_fill_str(char *str, int i_len, int f_len, int s_dig, long double ld)
-{
-	int				dyn_s_dig; //dynamic s_dig
-	long double		ld_copy;
-	int				counter;
-
-	dyn_s_dig = s_dig;
-	str[i_len] = '.';
-	counter = i_len - 1;
-	ld_copy = ld;
-	while (counter >= 0)
-	{
-		if (counter >= s_dig)
-			str[counter] = '0';
-		else
-		{
-			str[counter] = ((unsigned long long int)ld_copy % 10) + '0';
-			dyn_s_dig--;
-		}
-		ld_copy /= 10;
-		counter--;
-	}
-	counter++;
-	str = &str[i_len + 1];
-	while (counter < f_len)
-	{
-		ld *= 10;
-		if (!dyn_s_dig ||
-		((f_len - counter) > dyn_s_dig && dyn_s_dig == s_dig) ||
-		((f_len - counter) < dyn_s_dig && dyn_s_dig != s_dig))
-			str[counter] = '0';
-		else
-		{
-			str[counter] = ((unsigned long long int)ld % 10) + '0';
-			dyn_s_dig--;
-		}
-		counter++;
-	}
-}
-
 char	*ft_ld_string(int s_dig, int i_len, int f_len, long double ld)
 {
 	char				*str;
@@ -132,15 +92,14 @@ void	ft_put_floating_arg(s_args *list, long double argument)
 	long double 	tmp;
 	int				sign_dig; //significant digits
 
-
 	if (!argument)
-		list->arg = "0.000000";
+		list->arg = ft_strdup("0.000000");
 	else if (argument != argument)
-		list->arg = "nan";
+		list->arg = ft_strdup("nan");
 	else if (argument == (argument + argument) && argument > 0)
-		list->arg = "inf";
+		list->arg = ft_strdup("inf");
 	else if (argument == (argument + argument) && argument < 0)
-		list->arg = "-inf";
+		list->arg = ft_strdup("-inf");
 	else
 	{
 		tmp = argument;

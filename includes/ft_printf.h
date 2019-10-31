@@ -46,7 +46,6 @@ typedef struct		t_list
 	char			flags;
 	char			length;
 	char			type;
-
 	struct t_list	*next;
 }					s_args;
 
@@ -57,6 +56,7 @@ char		*ft_itoa_base(unsigned long long n, int base);
 char		*ft_itoa_base_uppercase(unsigned long long n, int base);
 char		*ft_itoa_pointer(unsigned long long n);
 
+char	*ft_strdup(const char *s1);
 int			ft_strlen(const char *s);
 
 

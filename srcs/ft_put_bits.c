@@ -28,9 +28,11 @@ char	*ft_make_string_bin(void *c, int len)
 			scanner /= 2;
 		}
 		byte--;
-	}	
+	}
+
 	str[pos] = '\0';
-	// printf("%s", str);
+	// write(1, "\nwrong\n\n", 8); //-----------------------------------------------------------------
+
 	return (str);
 }
 

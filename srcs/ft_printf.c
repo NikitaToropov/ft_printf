@@ -54,6 +54,7 @@ char	ft_selector_of_types(s_args *list, int counter_arg)
 
 void	ft_put_the_arg_in_lists(s_args *list, int num, unsigned long long integer_arg, long double floating_arg)
 {
+
 	while (list)
 	{
 		if (list->n_arg_width == num && list->width == -1)
@@ -107,6 +108,7 @@ int		ft_printf(const char *format, ...)
 			else
 				va_arg(ap, long long int);
 			counter_arg++;
+
 		}
 		va_end(ap);
 		ft_modify_str_arg(first_list);

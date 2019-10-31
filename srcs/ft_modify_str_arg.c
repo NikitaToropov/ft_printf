@@ -9,12 +9,12 @@ void	ft_modify_str_arg(s_args *first_list)
 	{
 		if (!(list->arg))
 		{
+
 			list->arg = (char*)malloc(sizeof(char) * 2);
 			(list->arg)[0] = list->type;
 			(list->arg)[1] = '\0';
 		}
-		if (list->precision != -1)
-			ft_precision_modifying(list);
+		ft_precision_modifying(list);
 		// if (tmp_list->width != -1)
 		// if (tmp_list->flags)
 		list = list->next;

@@ -44,7 +44,6 @@ void	ft_fill_by_fr(char *s, int f_len, int dyn_d, int stat_d, long double ld)
 	int		counter;
 
 	counter = 0;
-	printf("dyn_d = '%d' || stat_d = '%d\n'", dyn_d, stat_d);
 	while (counter < f_len)
 	{
 		ld *= 10;

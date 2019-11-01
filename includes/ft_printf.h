@@ -9,9 +9,16 @@
 # include <locale.h> // dont rmmbr
 # include <stdio.h> // dont rmmbr
 
-#define LDBL_DIG 18
-#define DBL_DIG 15
-#define BIN_FLAG 64
+#define LDBL_DIG	18
+#define DBL_DIG		15
+
+#define HASH_FLAG	1
+#define ZERO_FLAG	2
+#define MINUS_FLAG	4
+#define SPACE_FLAG	8
+#define PLUS_FLAG	16
+#define APOST_FLAG	32
+#define BIN_FLAG	64
 
 //Syntax:
 //			%[parameter][flags][width][.precision][length]type
@@ -36,6 +43,7 @@ typedef struct		t_list
 {
 	int				parameter; //bonus part - $
 	int				n_arg_width;//not a vlue but number of arg 0-9, taken from IBM manual for width, hardcoded in original printf
+	
 	int				n_arg_precision;//"--"
 	int				n_arg;//argument number can be more than 10
 
@@ -63,11 +71,14 @@ int			ft_strlen(const char *s);
 int			ft_atoi(const char *str);
 char		*ft_utf_8_coder(int sym);
 void		ft_put_bits(void *c, s_args *list); // checkit some problems with mush args
+void		ft_fill_w_z(s_args *list, char *tmp, int old, int new);
+
 // char		*ft_put_bits(void *c, unsigned int len);
 
 void		ft_clear_the_struct(s_args **first);
 char		*ft_strchr(const char *s, int c);
 
+void		ft_width_modifying(s_args *list);
 void		ft_precision_modifying(s_args *list);
 void		ft_modify_str_arg(s_args *first_list);
 

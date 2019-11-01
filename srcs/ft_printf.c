@@ -122,12 +122,12 @@ int		ft_printf(const char *format, ...)
 		printf("\"n_arg\"             is '%d'\n\n", first_list->n_arg);
 
 		printf("\"width\"             is '%d'\n", first_list->width);
-		printf("\"precision\"         is '%d'\n", first_list->precision);
-		printf("\"arg\"               is '%s'\n\n", first_list->arg);
+		printf("\"precision\"         is '%d'\n\n", first_list->precision);
 		
 		printf("\"flags\"             is '%i'\n", first_list->flags);
 		printf("\"length\"            is '%c'\n", first_list->length);
-		printf("\"type\"              is '%c'\n", first_list->type);
+		printf("\"type\"              is '%c'\n\n", first_list->type);
+		printf("\"arg\"               is \n%s\n", first_list->arg);
 		printf("------------------------------------\n\n");
 
 

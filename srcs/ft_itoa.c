@@ -18,8 +18,6 @@ char			*ft_itoa(long long n)
 	unsigned long long		number;
 	unsigned int			len;
 
-	if (n == 0)
-		return ("0\0");
 	number = (unsigned long long)(n);
 	if (n < 0)
 		number = (unsigned long long)(n * -1);

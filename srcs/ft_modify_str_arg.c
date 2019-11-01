@@ -15,7 +15,8 @@ void	ft_modify_str_arg(s_args *first_list)
 			(list->arg)[1] = '\0';
 		}
 		ft_precision_modifying(list);
-		// if (tmp_list->width != -1)
+		if (list->width != -1)
+			ft_width_modifying(list);
 		// if (tmp_list->flags)
 		list = list->next;
 	}

@@ -16,6 +16,7 @@ C_FILES = 	ft_printf.c\
 			ft_put_floating_arg.c\
 			ft_modify_str_arg.c\
 			ft_precision_modifying.c\
+			ft_width_modifying.c\
 			ft_error.c\
 			ft_strchr.c\
 			ft_strlen.c\

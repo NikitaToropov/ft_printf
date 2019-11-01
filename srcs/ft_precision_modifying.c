@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-void	ft_precision_di(s_args *list)
+void	ft_precision_dioux(s_args *list)
 {
 	int		old_len;
 	int		new_len;
@@ -148,5 +148,5 @@ void	ft_precision_modifying(s_args *list)
 	else if(list->precision != -1 &&
 	(list->type == 'd' || list->type == 'i' || list->type == 'o' ||
 	list->type == 'x' || list->type == 'X' || list->type == 'u'))
-		ft_precision_di(list);
+		ft_precision_dioux(list);
 }

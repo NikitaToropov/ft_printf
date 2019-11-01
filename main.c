@@ -7,8 +7,8 @@
 
 int		main(void)
 {	
-	ft_printf("%120.12f", 0.13);
-	printf("%120.12f", 0.13);
+	ft_printf("%-020.10x", 	13);
+	printf("%-020.10x", 13);
 
 	return (0);
 }	

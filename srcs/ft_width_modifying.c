@@ -62,7 +62,9 @@ void	ft_width_modifying(s_args *list)
 		list->arg[list->width] = '\0';
 		if (list->type == 'p' && list->flags & ZERO_FLAG)
 			ft_fill_w_z_p(list, tmp, old_len, new_len);
-		else if (list->flags & ZERO_FLAG)
+		else if (list->flags & ZERO_FLAG && (list->precision != -1 &&
+		list->type != 'i' && list->type != 'd' && list->type != 'o' &&
+		list->type != 'u' && list->type != 'x' && list->type != 'X'))
 			ft_fill_w_z(list, tmp, old_len, new_len);
 		else
 			ft_fill_w_sp(list, tmp, old_len - 1, new_len - 1);

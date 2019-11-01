@@ -127,7 +127,7 @@ int		ft_printf(const char *format, ...)
 		printf("\"flags\"             is '%i'\n", first_list->flags);
 		printf("\"length\"            is '%c'\n", first_list->length);
 		printf("\"type\"              is '%c'\n\n", first_list->type);
-		printf("\"arg\"               is \n%s\n", first_list->arg);
+		printf("\"arg\"               is \n%s|\n", first_list->arg);
 		printf("------------------------------------\n\n");
 
 

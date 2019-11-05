@@ -111,7 +111,7 @@ int		ft_printf(const char *format, ...)
 
 		}
 		va_end(ap);
-		ft_modify_str_arg(first_list);
+		// ft_modify_str_arg(first_list);
 	}
 	
 	while (first_list)

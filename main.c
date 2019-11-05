@@ -7,8 +7,9 @@
 
 int		main(void)
 {	
-	ft_printf("%-020.10x", 	13);
-	printf("%-020.10x", 13);
+	ft_printf("%#.2o", 0);
+	ft_printf("%#.2o", 0);
+	// printf("%0.20f", 0.999999);
 
 	return (0);
 }	

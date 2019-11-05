@@ -5,7 +5,7 @@ unsigned int	ft_uns_len(unsigned long long nb, int base)
 	unsigned int	ln;
 	
 	ln = 1;
-    while (nb /=  base)
+	while (nb /= base)
 		ln++;
 	return (ln);
 }
@@ -19,7 +19,7 @@ char	*ft_itoa_base(unsigned long long n, int base)
 
 
 	if (n == 0)
-		return ("0\0");
+		return (ft_strdup("0"));
 	len = ft_uns_len(n, base);
 	if (!(result = (char*)malloc(sizeof(char) * (len + 1))))
 		ft_error(1);
@@ -43,8 +43,6 @@ char	*ft_itoa_base_uppercase(unsigned long long n, int base)
 	char 					l[] = "ABCDEF";
 
 
-	if (n == 0)
-		return ("0\0");
 	len = ft_uns_len(n, base);
 	if (!(result = (char*)malloc(sizeof(char) * (len + 1))))
 		ft_error(1);
@@ -67,8 +65,6 @@ char	*ft_itoa_pointer(unsigned long long n)
 	unsigned int			modulo;
 	char 					l[] = "abcdef";
 
-	if (n == 0)
-		return ("0x0");
 	len = ft_uns_len(n, 16) + 2;
 	if (!(result = (char*)malloc(sizeof(char) * (len + 1))))
 		ft_error(1);

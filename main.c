@@ -7,9 +7,12 @@
 
 int		main(void)
 {	
-	ft_printf("%#.2o", 0);
-	ft_printf("%#.2o", 0);
-	// printf("%0.20f", 0.999999);
+	// ft_printf("%#.2o", 0);
 
+	// ft_printf("%#.2o%20.50f", 0, 15, 2.3);
+	// printf("%#.2o\n%20.50f", 0, 15, 2.3);
+
+	// ft_printf("%+4p", 15);
+	printf("%.4o", 15);
 	return (0);
 }	

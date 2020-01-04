@@ -9,30 +9,25 @@ INCLUDES = ./includes
 
 # files
 C_FILES = 	ft_printf.c\
-			ft_format_string_parse.c\
-			fields_parsers.c\
-			ft_put_bits.c\
-			ft_put_integer_arg.c\
-			ft_put_floating_arg.c\
-			ft_modify_str_arg.c\
-			ft_precision_modifying.c\
-			ft_width_modifying.c\
-			ft_error.c\
-			ft_strchr.c\
-			ft_strlen.c\
-			ft_strdup.c\
-			ft_clear_the_struct.c\
-			ft_itoa_base.c\
-			ft_itoa.c\
+			ft_parse_format.c\
 			ft_atoi.c\
-			ft_utf_8_coder.c\
-
+			sec_fts.c\
+			fields_parsers.c\
+			ft_parse_len.c\
+			ft_precision_f.c\
+			ft_ftoa.c\
+			fts_itoa.c\
+			ft_utf8_coder.c\
+			ft_print_arg.c\
+			ft_print_result.c\
+			ft_clear_struct.c\
+			ft_put_bits.c\
 
 HEADER = $(INCLUDES)/ft_printf.h
 
 SRCS = $(addprefix $(DIR_S)/,$(C_FILES))
 
-OBJS = $(addprefix $(DIR_O)/,$(C_FILES:.c=.o))
+OBJS = $(addprefix $(DIR_O)/,$(C_FILES:.c=.o))\
 
 # flags
 CC = gcc

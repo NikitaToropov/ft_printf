@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_put_bits.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cmissy <cmissy@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/05 18:28:16 by cmissy            #+#    #+#             */
+/*   Updated: 2019/12/26 21:29:19 by cmissy           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 char	*ft_make_string_bin(void *c, int len)
@@ -7,7 +19,8 @@ char	*ft_make_string_bin(void *c, int len)
 	char			*str;
 	unsigned int	pos;
 
-	str = (char*)malloc(sizeof(char) * (len * 8 + (len * 2 - 1) + 1));
+	if (!(str = ft_memalloc(len * 8 + (len * 2 - 1) + 1)))
+		exit(1);
 	byte = (unsigned char*)c + len - 1;
 	pos = 0;
 	while (byte >= (unsigned char*)c)
@@ -15,50 +28,41 @@ char	*ft_make_string_bin(void *c, int len)
 		scanner = 128;
 		while (scanner)
 		{
+			str[pos] = '0';
 			if (*byte & scanner)
 				str[pos] = '1';
-			else
-				str[pos] = '0';
 			pos++;
 			if (scanner == 16 || (scanner == 1 && byte != (unsigned char*)c))
-			{
-				str[pos] = ' ';
-				pos++;
-			}
+				str[pos++] = ' ';
 			scanner /= 2;
 		}
 		byte--;
 	}
-
-	str[pos] = '\0';
-	// write(1, "\nwrong\n\n", 8); //-----------------------------------------------------------------
-
 	return (str);
 }
 
-void	ft_put_bits(void *c, s_args *list)
+void	ft_put_bits(t_args *list)
 {
-	int		len;
+	double	tmp;
 
-	if (list->type == 'f')
-	{
-		if (list->length == 'F')
-			len = 10;
-		else
-			len = sizeof(double);
-	}
+	tmp = (double)(list->float_arg);
+	list->flags &= 0;
+	list->num_width = 0;
+	list->width = -1;
+	list->num_precision = 0;
+	list->precision = -1;
+	if (list->type == 'f' && list->length != LONG_DOUBLE)
+		list->string = ft_make_string_bin(&tmp, sizeof(double));
+	else if (list->type == 'f' && list->length == LONG_DOUBLE)
+		list->string = ft_make_string_bin(&(list->float_arg), 10);
+	else if (list->length == 'H' || list->type == 'c')
+		list->string = ft_make_string_bin(&(list->int_arg), sizeof(char));
+	else if (list->length == 'h')
+		list->string = ft_make_string_bin(&(list->int_arg), sizeof(short));
+	else if (list->length == 'L')
+		list->string = ft_make_string_bin(&(list->int_arg), sizeof(long long));
+	else if (list->length == 'l')
+		list->string = ft_make_string_bin(&(list->int_arg), sizeof(long int));
 	else
-	{
-		if (list->length == 'H' || list->type == 'c')
-			len = sizeof(char);
-		else if (list->length == 'h')
-			len = sizeof(short);
-		else if (list->length == 'L')
-			len = sizeof(long long int);
-		else if (list->length == 'l')
-			len = sizeof(long int);
-		else
-			len = sizeof(int);
-	}
-	list->arg = ft_make_string_bin(c, len);
+		list->string = ft_make_string_bin(&(list->int_arg), sizeof(int));
 }

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fields_parsers.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cmissy <cmissy@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/05 18:27:23 by cmissy            #+#    #+#             */
+/*   Updated: 2019/12/26 22:01:57 by cmissy           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int		ft_find_parameter(char *str, s_args *list)
+size_t		ft_find_parameter(char *str, t_args *list)
 {
 	char	*tmp_str;
 
@@ -9,135 +21,114 @@ int		ft_find_parameter(char *str, s_args *list)
 	tmp_str = str;
 	while (*tmp_str >= '0' && *tmp_str <= '9')
 		tmp_str++;
-	if (*tmp_str == '$')
+	if (*tmp_str == '$' && tmp_str != str)
 	{
-		list->parameter = ft_atoi(str);
+		list->order_counter = ft_atoi(str);
 		return (tmp_str - str + 1);
 	}
 	return (0);
 }
 
-int		ft_find_width(char *str, s_args *list)
+size_t		ft_find_flag(char c, t_args *list)
+{
+	if (c == '#')
+		list->flags |= HASH;
+	else if (c == '0')
+		list->flags |= ZERO;
+	else if (c == '-')
+		list->flags |= MINUS;
+	else if (c == ' ')
+		list->flags |= SPACE;
+	else if (c == '+')
+		list->flags |= PLUS;
+	else if (c == '\'')
+		list->flags |= UNIQODE;
+	else if (c == 'b')
+		list->flags |= BINARY;
+	if (list->flags & MINUS)
+		list->flags &= (~ZERO);
+	if (list->flags & PLUS)
+		list->flags &= (~SPACE);
+	if (c && ft_strchr("b#0-+' ", c))
+		return (1);
+	return (0);
+}
+
+size_t		ft_find_width(char *str, t_args *list)
 {
 	char	*tmp_str;
 
-	if (str[0] == '0')
-		return (0);
 	if (str[0] == '*')
 	{
 		if ((str[1] >= '1' && str[1] <= '9') && str[2] == '$')
 		{
-			list->n_arg_width = str[1] - '0';
+			list->num_width = (int)(str[1] - '0');
 			return (3);
 		}
 		else
 		{
-			list->n_arg_width = list->parameter;
-			list->parameter += 1;
+			list->num_width = list->order_counter;
+			list->order_counter += 1;
 			return (1);
 		}
 	}
 	tmp_str = str;
-	while (*tmp_str >= '0' && *tmp_str <= '9')
+	while (*tmp_str >= '0' && *tmp_str <= '9' && *str != '0')
 		tmp_str++;
 	if (tmp_str != str)
 	{
 		list->width = ft_atoi(str);
-		list->n_arg_width = 0;
-		return (tmp_str - str);
+		list->num_width = 0;
 	}
-	return (0);
+	return (tmp_str - str);
 }
 
-int		ft_find_precision(char *str, s_args *list)
+size_t		ft_find_precision(char *str, t_args *list)
 {
 	char	*tmp_str;
 
-	if (str[0] != '.')
-		return (0);
-	if (str[1] == '*')
+	if (str[0] == '.')
 	{
-		list->precision = -1;
-		if ((str[2] >= '1' && str[2] <= '9') && str[3] == '$')
+		if (str[1] == '*' && (str[2] >= '0' || str[2] <= '9') && str[3] == '$')
 		{
-			list->n_arg_precision = str[2] - '0';
+			(list->num_precision = str[2] - '0');
 			return (4);
 		}
-		else
+		if (str[1] == '*')
 		{
-			list->n_arg_precision = list->parameter;
-			list->parameter += 1;
+			list->num_precision = list->order_counter;
+			list->order_counter += 1;
 			return (2);
 		}
-	}	
-	tmp_str = &str[1];
-	while (*tmp_str >= '0' && *tmp_str <= '9')
-		tmp_str++;
-	if (tmp_str != &str[1])
-	{
+		list->num_precision = 0;
+		tmp_str = &str[1];
+		while (*tmp_str >= '0' && *tmp_str <= '9')
+			tmp_str++;
 		list->precision = ft_atoi(&str[1]);
-		list->n_arg_precision = 0;
 		return (tmp_str - str);
 	}
 	return (0);
 }
 
-int		ft_find_length(char *str, s_args *list)
+size_t		ft_find_length(char *str, t_args *list)
 {
-	if (!*str)
-		return (0);
-	else if (str[0] == 'h' && str[1] == 'h')
+	if ((str[0] == 'h' && str[1] == 'h') || (str[0] == 'l' && str[1] == 'l'))
 	{
-		list->length = 'H';
+		if (str[0] == 'h')
+			list->length = CHAR;
+		else
+			list->length = LONG_LONG;
 		return (2);
 	}
-	else if (str[0] == 'l' && str[1] == 'l')
+	else if (str[0] == 'h' || str[0] == 'l' || str[0] == 'L')
 	{
-		list->length = 'L';
-		return (2);
-	}
-	else if (str[0] == 'h')
-	{
-		list->length = 'h';
+		if (str[0] == 'h')
+			list->length = SHORT;
+		else if (str[0] == 'l')
+			list->length = LONG;
+		else
+			list->length = LONG_DOUBLE;
 		return (1);
 	}
-	else if (str[0] == 'l')
-	{
-		list->length = 'l';
-		return (1);
-	}
-	else if (str[0] == 'L')
-	{
-		list->length = 'F';
-		return (1);
-	}
-	return (0);
-}
-
-int		ft_find_flag(char symbol, s_args *list)
-{
-	if (symbol == '#')
-		list->flags |= 1;
-	else if (symbol == '0')
-		list->flags |= 2;
-	else if (symbol == '-')
-		list->flags |= 4;
-	else if (symbol == ' ')
-		list->flags |= 8;
-	else if (symbol == '+')
-		list->flags |= 16;
-	else if (symbol == '\'')
-		list->flags |= 32;
-	else if (symbol == 'b')
-		list->flags |= 64;	
-	if (list->flags & 4) // if flag '-' then ignore '0'
-		list->flags &= 253;
-	if (list->flags & 16) // if flag '+' then ignore ' '
-		list->flags &= 247;
-	if (symbol == '#' || symbol == '0' ||
-	symbol == '-' || symbol == ' ' ||
-	symbol == '+' || symbol == '\'' ||
-	symbol == 'b')
-		return (1);
 	return (0);
 }

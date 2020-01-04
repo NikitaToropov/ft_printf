@@ -1,140 +1,96 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cmissy <cmissy@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/05 18:28:12 by cmissy            #+#    #+#             */
+/*   Updated: 2019/12/05 18:28:12 by cmissy           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int		ft_check_integer_type(char type)
-{
-	if (type == 'c' || type == 's' || type == 'p' ||
-	type == 'd' || type == 'i' || type == 'o' ||
-	type == 'u' || type == 'x' || type == 'X')
-		return (1);
-	return (0);
-}
-
-int		ft_find_ltst_arg(s_args *list)
-{
-	int		biggest;
-
-	biggest = 0;
-	while (list)
-	{
-		if (biggest < list->n_arg_width)
-			biggest = list->n_arg_width;
-		if (biggest < list->n_arg_precision)
-			biggest = list->n_arg_precision;
-		if (biggest < list->n_arg)
-			biggest = list->n_arg;
-		list = list->next;
-	}
-	return (biggest);
-}
-
-char	ft_selector_of_types(s_args *list, int counter_arg)
+static void			ft_put_arg(t_args *list, size_t n, unsigned long long i_arg,
+long double f_arg)
 {
 	while (list)
 	{
-		if (list->n_arg_width == counter_arg ||
-		list->n_arg_precision == counter_arg ||
-		(list->n_arg == counter_arg && ft_check_integer_type(list->type)))
+		if (list->num_width == n)
+			list->width = (int)i_arg;
+		if (list->num_precision == n)
+			list->precision = (int)i_arg;
+		if (list->num_arg == n)
 		{
-			return ('i');
-		}
-		if (list->n_arg == counter_arg && list->type == 'f' &&
-		list->length != 'F')
-		{
-			return ('f');
-		}
-		if (list->n_arg == counter_arg && list->type == 'f' &&
-		list->length == 'F')
-		{
-			return ('F');
-		}
-		list = list->next;
-	}
-	return ('e');
-}
-
-void	ft_put_the_arg_in_lists(s_args *list, int num, unsigned long long integer_arg, long double floating_arg)
-{
-
-	while (list)
-	{
-		if (list->n_arg_width == num && list->width == -1)
-			list->width = (int)integer_arg;
-		if (list->n_arg_precision == num && list->precision == -1)
-			list->precision = (int)integer_arg;
-		if (list->n_arg == num)
-		{
-			if (list->flags & BIN_FLAG &&
-			(list->type == 'd' || list->type == 'i' || list->type == 'u' ||
-			list->type == 'c' || list->type == 'f'))
-			{
-				if (integer_arg)
-					ft_put_bits(&integer_arg, list);
-				else
-					ft_put_bits(&floating_arg, list);
-			}
-			else if (ft_check_integer_type(list->type))
-				ft_put_integer_arg(list, integer_arg);
-			else if (list->type == 'f')
-				ft_put_floating_arg(list, floating_arg);
-		}
-		list = list->next;
-	}
-}
-
-int		ft_printf(const char *format, ...)
-{
-	va_list					ap;
-	s_args					*first_list;
-	char					type_selector;
-	int						num_of_ltst_arg;
-	int						counter_arg;
-
-
-	first_list = ft_string_parse((char*)format);
-	if (first_list)
-	{
-		va_start(ap, format);
-		num_of_ltst_arg = ft_find_ltst_arg(first_list);
-		counter_arg = 1;
-		while (counter_arg <= num_of_ltst_arg)
-		{
-			type_selector = ft_selector_of_types(first_list, counter_arg);
-			if (type_selector == 'i')
-				ft_put_the_arg_in_lists(first_list, counter_arg, va_arg(ap, unsigned long long), 0);
-			else if (type_selector == 'f')
-				ft_put_the_arg_in_lists(first_list, counter_arg, 0, (long double)va_arg(ap, double));
-			else if (type_selector == 'F')
-				ft_put_the_arg_in_lists(first_list, counter_arg, 0, va_arg(ap, long double));
+			if (list->type == 'f')
+				list->float_arg = f_arg;
 			else
-				va_arg(ap, long long int);
-			counter_arg++;
-
+				list->int_arg = i_arg;
 		}
-		va_end(ap);
-		ft_modify_str_arg(first_list);
+		list = list->next;
 	}
-	
-	while (first_list)
+}
+
+static char			ft_find_arg_type(t_args *list, size_t n)
+{
+	while (list)
 	{
-		printf("\n\"parameter\"         is '%d'\n", first_list->parameter);
-		printf("\"n_arg_width\"       is '%d'\n", first_list->n_arg_width);
-		printf("\"n_arg_precision\"   is '%d'\n", first_list->n_arg_precision);
-		printf("\"n_arg\"             is '%d'\n\n", first_list->n_arg);
-
-		printf("\"width\"             is '%d'\n", first_list->width);
-		printf("\"precision\"         is '%d'\n\n", first_list->precision);
-		
-		printf("\"flags\"             is '%i'\n", first_list->flags);
-		printf("\"length\"            is '%c'\n", first_list->length);
-		printf("\"type\"              is '%c'\n\n", first_list->type);
-		printf("\"arg\"               is \n%s|\n", first_list->arg);
-		printf("------------------------------------\n");
-
-
-		first_list = first_list->next;
+		if (list->num_width == n || list->num_precision == n ||
+		(list->num_arg == n && ft_strchr("diouxXcsp", list->type)))
+			return ('i');
+		else if (list->num_arg == n && list->type == 'f' && list->length == 'D')
+			return ('F');
+		else if (list->num_arg == n && list->type == 'f')
+			return ('f');
+		list = list->next;
 	}
+	return ('E');
+}
 
+static size_t		ft_find_latest_arg(t_args *list)
+{
+	size_t			l;
 
-	ft_clear_the_struct(&first_list);
-	return (0);
+	l = 0;
+	while (list)
+	{
+		if (list->num_arg > l)
+			l = list->num_arg;
+		if (list->num_precision > l)
+			l = list->num_precision;
+		if (list->num_width > l)
+			l = list->num_width;
+		list = list->next;
+	}
+	return (l);
+}
+
+int					ft_printf(const char *format, ...)
+{
+	t_args			*first_list;
+	va_list			ap;
+	size_t			counter;
+	size_t			latest;
+	char			type;
+
+	first_list = ft_parse_format(format);
+	va_start(ap, format);
+	counter = 0;
+	latest = ft_find_latest_arg(first_list);
+	while (counter++ <= latest)
+	{
+		if ((type = ft_find_arg_type(first_list, counter)) == 'i')
+			ft_put_arg(first_list, counter, va_arg(ap, unsigned long long), 0);
+		else if (type == 'f')
+			ft_put_arg(first_list, counter, 0, (long double)va_arg(ap, double));
+		else if (type == 'F')
+			ft_put_arg(first_list, counter, 0, va_arg(ap, long double));
+		else
+			va_arg(ap, unsigned long long);
+	}
+	va_end(ap);
+	counter = ft_print_result((char*)format, first_list);
+	ft_clear_struct(&first_list);
+	return (counter);
 }
